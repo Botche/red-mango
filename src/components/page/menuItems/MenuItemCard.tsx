@@ -18,7 +18,7 @@ function MenuItemCard(props: MenuItemCardProps) {
               <img
                 src={props.menuItem.imageUrl}
                 style={{ borderRadius: "50%" }}
-                alt=""
+                alt={props.menuItem.name}
                 className="w-100 mt-5 image-box"
               />
             </Link>
