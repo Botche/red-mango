@@ -1,3 +1,3 @@
-import MenuItemModel from "./menuItemModel";
+import MenuItemModel from "./MenuItemModel";
 
 export type { MenuItemModel };
