@@ -1,11 +1,28 @@
-import { MenuItemModel } from "../../../interfaces";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { MenuItemModel } from "../../../interfaces";
+import { useUpdateShoppingCartMutation } from "../../../apis/shoppingCartApi";
 
 interface MenuItemCardProps {
   menuItem: MenuItemModel;
 }
 
 function MenuItemCard(props: MenuItemCardProps) {
+  const [isAddingToCart, setIsAddingToCart] = useState(false);
+  const [updateShoppingCart] = useUpdateShoppingCartMutation();
+
+  const handleAddToCart = async (menuItemId: string) => {
+    setIsAddingToCart(true);
+
+    await updateShoppingCart({
+      menuItemId,
+      updateQuantityBy: 1,
+      userId: "4b6624b9-775a-4e27-82ad-40939ee612f5", // hardcoded user id
+    });
+
+    setIsAddingToCart(false);
+  };
+
   return (
     <div className="col-md-4 col-12 p-4">
       <div
