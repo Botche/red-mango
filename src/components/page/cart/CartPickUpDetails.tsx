@@ -3,8 +3,10 @@ import { useSelector } from "react-redux";
 import { CartItemModel } from "../../../interfaces";
 import { RootState } from "../../../storage/redux/store";
 import { inputHelper } from "../../../helpers";
+import { MiniLoader } from "../common";
 
 function CartPickUpDetails() {
+  const [isLoading, setIsLoading] = useState(false);
   const [userInput, setUserInput] = useState({
     name: "",
     email: "",
@@ -27,13 +29,18 @@ function CartPickUpDetails() {
     setUserInput(tempData);
   };
 
+  const handleSumbit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsLoading(true);
+  };
+
   return (
     <div className="border pb-5 pt-3">
       <h1 style={{ fontWeight: "300" }} className="text-center text-success">
         Pickup Details
       </h1>
       <hr />
-      <form className="col-10 mx-auto">
+      <form className="col-10 mx-auto" onSubmit={handleSumbit}>
         <div className="form-group mt-3">
           Pickup Name
           <input
@@ -80,8 +87,9 @@ function CartPickUpDetails() {
         <button
           type="submit"
           className="btn btn-lg btn-success form-control mt-3"
+          disabled={isLoading}
         >
-          Looks Good? Place Order!
+          {isLoading ? <MiniLoader /> : "Looks Good? Place Order!"}
         </button>
       </form>
     </div>
