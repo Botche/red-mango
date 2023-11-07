@@ -6,7 +6,7 @@ function MenuItemList() {
   const [menuItems, setMenuItems] = useState<MenuItemModel[]>([]);
 
   useEffect(() => {
-    fetch("https://redmangoapidotnet.azurewebsites.net/api/MenuItem")
+    fetch("")
       .then((response) => response.json())
       .then((data) => {
         setMenuItems(data.result);
