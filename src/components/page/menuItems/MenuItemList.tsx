@@ -9,7 +9,6 @@ function MenuItemList() {
     fetch("https://redmangoapidotnet.azurewebsites.net/api/MenuItem")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setMenuItems(data.result);
       });
   }, []);
