@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit/dist/configureStore";
+import { configureStore } from "@reduxjs/toolkit";
 import { menuItemReducer } from "./menuItemSlice";
 import { menuItemApi } from "../../apis";
 
