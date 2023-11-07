@@ -6,7 +6,6 @@ import { Home, MenuItemDetails, NotFound, ShoppingCart } from "../pages";
 import { useEffect } from "react";
 import { useGetShoppingCartQuery } from "../apis/shoppingCartApi";
 import { setShoppingCart } from "../storage/redux/shoppingCartSlice";
-import { MainLoader } from "../components/page/common";
 
 function App() {
   const dispatch = useDispatch();
