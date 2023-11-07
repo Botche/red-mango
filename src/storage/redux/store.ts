@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit/dist/configureStore";
-import { menuItemReducer } from "./menuItemSlics";
+import { menuItemReducer } from "./menuItemSlice";
 import { menuItemApi } from "../../apis";
 
 const store = configureStore({
