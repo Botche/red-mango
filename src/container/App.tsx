@@ -16,7 +16,6 @@ function App() {
   useEffect(() => {
     if (!isLoading) {
       dispatch(setShoppingCart(data.result?.cartItems));
-      console.log(data.result.cartItems);
     }
   }, [data]);
 
