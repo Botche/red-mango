@@ -20,8 +20,14 @@ export const shoppingCartSlice = createSlice({
         return item;
       });
     },
+    removeFromCart: (state, action) => {
+      state.cartItems = state.cartItems?.filter(
+        (cartItem) => cartItem.id !== action.payload.id
+      );
+    },
   },
 });
 
-export const { setShoppingCart } = shoppingCartSlice.actions;
+export const { setShoppingCart, updateQuantity, removeFromCart } =
+  shoppingCartSlice.actions;
 export const shoppingCartReducer = shoppingCartSlice.reducer;
