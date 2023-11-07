@@ -1,5 +1,13 @@
+import { Header, Footer } from "../components/layout";
+
 function App() {
-  return <div className="text-success">App</div>;
+  return (
+    <div className="">
+      <Header />
+      Main Component
+      <Footer />
+    </div>
+  );
 }
 
 export default App;
