@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   PaymentElement,
   useStripe,
@@ -17,6 +18,7 @@ import { OrderStatuses } from "../../../utility/constants";
 
 function CheckoutForm({ data, userInput }: OrderSummaryProps) {
   const [isProcessing, setIsProcessing] = useState(false);
+  const navigate = useNavigate();
   const stripe = useStripe();
   const elements = useElements();
   const [createOrder] = useCreateOrderMutation();
@@ -77,8 +79,17 @@ function CheckoutForm({ data, userInput }: OrderSummaryProps) {
       };
 
       const response: ApiResponse = await createOrder(orderHeader);
-      console.log(response);
+      if (
+        response &&
+        response.data?.result!.status === OrderStatuses.CONFIRMED
+      ) {
+        navigate(`/order/orderConfirmed/${response.data.result.orderHeaderId}`);
+      } else {
+        navigate("/order/failed");
+      }
     }
+
+    setIsProcessing(false);
   };
 
   return (
