@@ -3,7 +3,7 @@ import { ShoppingCartModel } from "../../../interfaces";
 export default interface OrderSummaryProps {
   data: {
     id: string;
-    cartItem: ShoppingCartModel[];
+    cartItems: ShoppingCartModel[];
     cartTotal: number;
   };
   userInput: {

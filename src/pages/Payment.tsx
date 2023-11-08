@@ -10,8 +10,6 @@ function Payment() {
   const {
     state: { apiResult, userInput },
   } = useLocation();
-  console.log(apiResult)
-  console.log(userInput)
 
   const options = {
     clientSecret: apiResult.clientSecret,
@@ -24,8 +22,11 @@ function Payment() {
           <div className="col-md-7">
             <OrderSummary data={apiResult} userInput={userInput} />
           </div>
-          <div className="col-md-5">
-            <CheckoutForm />
+          <div className="col-md-4 offset-md-1">
+            <h3 className="text-success">Payment</h3>
+            <div className="mt-5">
+              <CheckoutForm />
+            </div>
           </div>
         </div>
       </div>
