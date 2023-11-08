@@ -9,6 +9,7 @@ import {
   Home,
   Login,
   MenuItemDetails,
+  MyOrders,
   NotFound,
   OrderConfirmed,
   Payment,
@@ -62,6 +63,7 @@ function App() {
             path="/order/orderConfirmed/:id"
             element={<OrderConfirmed />}
           />
+          <Route path="/order/myOrders" element={<MyOrders />} />
 
           <Route path="/accessDenied" element={<AccessDenied />} />
 
