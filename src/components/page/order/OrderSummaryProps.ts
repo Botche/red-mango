@@ -9,6 +9,6 @@ export default interface OrderSummaryProps {
   userInput: {
     name: string;
     email: string;
-    phone: string;
+    phoneNumber: string;
   };
 }
