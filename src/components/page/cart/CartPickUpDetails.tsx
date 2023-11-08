@@ -1,20 +1,23 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { CartItemModel } from "../../../interfaces";
+import { CartItemModel, UserModel } from "../../../interfaces";
 import { RootState } from "../../../storage/redux/store";
 import { inputHelper } from "../../../helpers";
 import { MiniLoader } from "../common";
 
 function CartPickUpDetails() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [userInput, setUserInput] = useState({
-    name: "",
-    email: "",
-    phoneNumber: "",
-  });
   const shoppingCartFromStore: CartItemModel[] = useSelector(
     (state: RootState) => state.shoppingCartStore.cartItems
   );
+  const userData: UserModel = useSelector(
+    (state: RootState) => state.userAuthStore
+  );
+  const [isLoading, setIsLoading] = useState(false);
+  const [userInput, setUserInput] = useState({
+    name: userData.fullName,
+    email: userData.email,
+    phoneNumber: "",
+  });
 
   let grandTotal = 0;
   let totalItems = 0;
