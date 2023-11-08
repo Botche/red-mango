@@ -1,4 +1,19 @@
+import { useState } from "react";
+import { inputHelper } from "../helpers";
+
 function Register() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [userInput, setUserInput] = useState({
+    userName: "",
+    password: "",
+    name: "",
+  });
+
+  const handleUserInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const tempData = inputHelper(event, userInput);
+    setUserInput(tempData);
+  }
+
   return (
     <div className="container text-center">
       <form method="post">
@@ -10,6 +25,9 @@ function Register() {
               className="form-control"
               placeholder="Enter Username"
               required
+              name="userName"
+              value={userInput.userName}
+              onChange={handleUserInput}
             />
           </div>
           <div className="col-sm-6 offset-sm-3 col-xs-12 mt-4">
@@ -18,6 +36,9 @@ function Register() {
               className="form-control"
               placeholder="Enter Name"
               required
+              name="name"
+              value={userInput.name}
+              onChange={handleUserInput}
             />
           </div>
           <div className="col-sm-6 offset-sm-3 col-xs-12 mt-4">
@@ -26,14 +47,10 @@ function Register() {
               className="form-control"
               placeholder="Enter Password"
               required
+              name="password"
+              value={userInput.password}
+              onChange={handleUserInput}
             />
-          </div>
-          <div className="col-sm-6 offset-sm-3 col-xs-12 mt-4">
-            <select className="form-control form-select" required>
-              <option value="">--Select Role--</option>
-              <option value="customer">Customer</option>
-              <option value="admin">Admin</option>
-            </select>
           </div>
         </div>
         <div className="mt-5">
