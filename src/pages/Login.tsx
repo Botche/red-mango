@@ -49,12 +49,9 @@ function Login() {
     setIsLoading(false);
   };
 
-  if (isLoading) {
-    return <MainLoader />;
-  }
-
   return (
     <div className="container text-center">
+      {isLoading && <MainLoader />}
       <form method="post" onSubmit={handleSubmit}>
         <h1 className="mt-5">Login</h1>
         <div className="mt-5">
@@ -88,6 +85,7 @@ function Login() {
             type="submit"
             className="btn btn-success"
             style={{ width: "200px" }}
+            disabled={isLoading}
           >
             Login
           </button>
