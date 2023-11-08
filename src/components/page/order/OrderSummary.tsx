@@ -112,9 +112,12 @@ function OrderSummary({ data, userInput }: OrderSummaryProps) {
 
         {userData.role && userData.role === Roles.ADMIN && (
           <div>
-            <button className="btn btn-danger mx-1" onClick={handleCancel}>
-              Cancel
-            </button>
+            {data.status !== OrderStatuses.CANCELLED &&
+              data.status !== OrderStatuses.COMPLETED && (
+                <button className="btn btn-danger mx-1" onClick={handleCancel}>
+                  Cancel
+                </button>
+              )}
             <button
               className={`btn btn-${nextStatus.color} mx-2`}
               onClick={handleNextStatus}
