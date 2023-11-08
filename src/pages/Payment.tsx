@@ -25,7 +25,7 @@ function Payment() {
           <div className="col-md-4 offset-md-1">
             <h3 className="text-success">Payment</h3>
             <div className="mt-5">
-              <CheckoutForm />
+              <CheckoutForm data={apiResult} userInput={userInput} />
             </div>
           </div>
         </div>

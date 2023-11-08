@@ -5,8 +5,12 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import { toastNotify } from "../../../helpers";
+import OrderSummaryProps from "../order/OrderSummaryProps";
+import OrderModel from "../../../interfaces/OrderModel";
+import { CartItemModel } from "../../../interfaces";
+import OrderDetailsModel from "../../../interfaces/OrderDetailsModel";
 
-function CheckoutForm() {
+function CheckoutForm({ data, userInput }: OrderSummaryProps) {
   const [isProcessing, setIsProcessing] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
@@ -32,7 +36,19 @@ function CheckoutForm() {
       toastNotify("An unexpected error occured.", "error");
       setIsProcessing(false);
     } else {
-      console.log(result);
+
+      
+      const orderDetails: OrderDetailsModel[] = [];
+      data.cartItems.forEach((item: CartItemModel) => {
+        const tempOrderDetails: OrderDetailsModel = {
+          itemName: item.menuItem?.name!,
+          menuItemId: item.menuItemId!,
+          price: item.menuItem?.price!,
+          quantity: item.quantity!,
+        };
+
+        orderDetails.push(tempOrderDetails);
+      });
     }
   };
 
