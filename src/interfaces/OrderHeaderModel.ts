@@ -1,12 +1,12 @@
 import { OrderStatuses } from "../utility/constants";
 import OrderDetailsModel from "./OrderDetailsModel";
 
-export default interface OrderModel {
+export default interface OrderHeaderModel {
   pickupName: string;
   pickupPhoneNumber: string;
   pickupEmail: string;
   userId: string;
-  orderTota: number;
+  orderTotal: number;
   stripePaymentIntentId: string;
   status: OrderStatuses;
   totalItems: number;
