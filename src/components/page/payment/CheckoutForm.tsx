@@ -68,6 +68,7 @@ function CheckoutForm({ data, userInput }: OrderSummaryProps) {
           ? OrderStatuses.CONFIRMED
           : OrderStatuses.PENDING;
       const orderHeader: OrderHeaderModel = {
+        orderDate: new Date(),
         orderTotal: grandTotal,
         totalItems: totalItems,
         pickupEmail: userInput.email,
