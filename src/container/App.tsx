@@ -6,6 +6,7 @@ import { jwtDecode } from "jwt-decode";
 import { Header, Footer } from "../components/layout";
 import {
   AccessDenied,
+  AllOrders,
   Home,
   Login,
   MenuItemDetails,
@@ -66,6 +67,7 @@ function App() {
           />
           <Route path="/order/myOrders" element={<MyOrders />} />
           <Route path="/order/orderDetails/:id" element={<OrderDetails />} />
+          <Route path="/order/allOrders" element={<AllOrders />} />
 
           <Route path="/accessDenied" element={<AccessDenied />} />
 

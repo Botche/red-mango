@@ -9,8 +9,10 @@ import Payment from "./Payment";
 import OrderConfirmed from "./order/OrderConfirmed";
 import MyOrders from "./order/MyOrders";
 import OrderDetails from "./order/OrderDetails";
+import AllOrders from "./order/AllOrders";
 
 export {
+  AllOrders,
   Home,
   NotFound,
   MenuItemDetails,

@@ -69,13 +69,23 @@ function Header() {
                   Admin Panel
                 </a>
                 <ul className="dropdown-menu">
-                  <li className="dropdown-item" aria-current="page">
-                    <NavLink to="/order/myOrders">My Orders</NavLink>
+                  <li>
+                    <NavLink
+                      className="dropdown-item"
+                      aria-current="page"
+                      to="/order/myOrders"
+                    >
+                      My Orders
+                    </NavLink>
                   </li>
                   <li>
-                    <a className="dropdown-item" href="#">
-                      Something else here
-                    </a>
+                    <NavLink
+                      className="dropdown-item"
+                      aria-current="page"
+                      to="/order/allOrders"
+                    >
+                      All Orders
+                    </NavLink>
                   </li>
                 </ul>
               </li>
