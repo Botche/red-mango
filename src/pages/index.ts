@@ -6,6 +6,7 @@ import Register from "./Register";
 import Login from "./Login";
 import AccessDenied from "./AccessDenied";
 import Payment from "./Payment";
+import OrderConfirmed from "./order/OrderConfirmed";
 
 export {
   Home,
@@ -16,4 +17,5 @@ export {
   Login,
   AccessDenied,
   Payment,
+  OrderConfirmed,
 };

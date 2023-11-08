@@ -15,6 +15,7 @@ import {
 } from "../../../interfaces";
 import { useCreateOrderMutation } from "../../../apis/orderApi";
 import { OrderStatuses } from "../../../utility/constants";
+import { MiniLoader } from "../common";
 
 function CheckoutForm({ data, userInput }: OrderSummaryProps) {
   const [isProcessing, setIsProcessing] = useState(false);
@@ -83,7 +84,7 @@ function CheckoutForm({ data, userInput }: OrderSummaryProps) {
         response &&
         response.data?.result!.status === OrderStatuses.CONFIRMED
       ) {
-        navigate(`/order/orderConfirmed/${response.data.result.orderHeaderId}`);
+        navigate(`/order/orderConfirmed/${response.data.result.id}`);
       } else {
         navigate("/order/failed");
       }
@@ -95,7 +96,14 @@ function CheckoutForm({ data, userInput }: OrderSummaryProps) {
   return (
     <form onSubmit={handleSubmit}>
       <PaymentElement />
-      <button className="btn btn-success mt-5 w-100">Submit</button>
+      <button
+        className="btn btn-success mt-5 w-100"
+        disabled={!stripe || isProcessing}
+      >
+        <span id="button-text">
+          {isProcessing ? "Processing..." : "Submit"}
+        </span>
+      </button>
     </form>
   );
 }

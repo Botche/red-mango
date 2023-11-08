@@ -10,13 +10,12 @@ import {
   Login,
   MenuItemDetails,
   NotFound,
+  OrderConfirmed,
   Payment,
   Register,
   ShoppingCart,
 } from "../pages";
-import {
-  useLazyGetShoppingCartQuery,
-} from "../apis/shoppingCartApi";
+import { useLazyGetShoppingCartQuery } from "../apis/shoppingCartApi";
 import { setShoppingCart } from "../storage/redux/shoppingCartSlice";
 import { UserModel } from "../interfaces";
 import { setLoggedInUser } from "../storage/redux/userAuthSlice";
@@ -59,6 +58,10 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/payment" element={<Payment />} />
+          <Route
+            path="/order/orderConfirmed/:id"
+            element={<OrderConfirmed />}
+          />
 
           <Route path="/accessDenied" element={<AccessDenied />} />
 
