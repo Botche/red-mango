@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { inputHelper } from "../helpers";
 import { ApiResponse, UserModel } from "../interfaces";
 import { useLoginUserMutation } from "../apis/authApi";
 import { jwtDecode } from "jwt-decode";
 import { setLoggedInUser } from "../storage/redux/userAuthSlice";
+import { MainLoader } from "../components/page/common";
 
 function Login() {
   const [error, setError] = useState("");
@@ -14,6 +16,7 @@ function Login() {
     password: "",
   });
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [loginUser] = useLoginUserMutation();
 
@@ -33,19 +36,23 @@ function Login() {
     });
 
     if (response.data) {
-      console.log(response.data);
       const { token } = response.data.result!;
 
       const { fullName, email, id, role }: UserModel = jwtDecode(token);
       localStorage.setItem("token", token);
       dispatch(setLoggedInUser({ fullName, email, id, role }));
+
+      navigate("/");
     } else if (response.error) {
-      console.log(response.error.data.errorMessages);
       setError(response.error.data.errorMessages[0]);
     }
 
     setIsLoading(false);
   };
+
+  if (isLoading) {
+    return <MainLoader />;
+  }
 
   return (
     <div className="container text-center">

@@ -1,13 +1,18 @@
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { RootState } from "../../storage/redux/store";
-import { CartItemModel } from "../../interfaces";
+import { CartItemModel, UserModel } from "../../interfaces";
+import { Fragment } from "react";
 
 const logo = require("../../assets/images/mango.png");
 
 function Header() {
   const shoppingCartFromStore: CartItemModel[] = useSelector(
     (state: RootState) => state.shoppingCartStore.cartItems ?? []
+  );
+
+  const userData: UserModel = useSelector(
+    (state: RootState) => state.userAuthStore
   );
 
   return (
@@ -80,28 +85,47 @@ function Header() {
               </ul>
             </li>
             <div className="d-flex" style={{ marginLeft: "auto" }}>
-              <li className="nav-item">
-                <button
-                  className="btn btn-success btn-outlined rounded-pill text-white mx-2"
-                  style={{ border: "none", height: "40px", width: "100px" }}
-                >
-                  Logout
-                </button>
-              </li>
-              <li className="nav-item text-white">
-                <NavLink className="nav-link" to="/register">
-                  Register
-                </NavLink>
-              </li>
-              <li className="nav-item text-white">
-                <NavLink
-                  to="/login"
-                  className="btn btn-success btn-outlined rounded-pill text-white mx-2"
-                  style={{ border: "none", height: "40px", width: "100px" }}
-                >
-                  Login
-                </NavLink>
-              </li>
+              {userData.id ? (
+                <Fragment>
+                  <li className="nav-item">
+                    <button
+                      className="nav-link active"
+                      style={{
+                        cursor: "pointer",
+                        background: "transparent",
+                        border: 0,
+                      }}
+                    >
+                      Welcome, {userData.fullName}
+                    </button>
+                  </li>
+                  <li className="nav-item">
+                    <button
+                      className="btn btn-success btn-outlined rounded-pill text-white mx-2"
+                      style={{ border: "none", height: "40px", width: "100px" }}
+                    >
+                      Logout
+                    </button>
+                  </li>
+                </Fragment>
+              ) : (
+                <Fragment>
+                  <li className="nav-item text-white">
+                    <NavLink className="nav-link" to="/register">
+                      Register
+                    </NavLink>
+                  </li>
+                  <li className="nav-item text-white">
+                    <NavLink
+                      to="/login"
+                      className="btn btn-success btn-outlined rounded-pill text-white mx-2"
+                      style={{ border: "none", height: "40px", width: "100px" }}
+                    >
+                      Login
+                    </NavLink>
+                  </li>
+                </Fragment>
+              )}
             </div>
           </ul>
         </div>
