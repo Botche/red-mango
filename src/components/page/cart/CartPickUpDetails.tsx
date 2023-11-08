@@ -41,9 +41,8 @@ function CartPickUpDetails() {
     setIsLoading(true);
 
     const { data }: ApiResponse = await initiatePayment(userData.id);
-    const orderSummary = { grandTotal, totalItems };
     navigate("/payment", {
-      state: { apiResult: data?.result, userData, orderSummary },
+      state: { apiResult: data?.result, userInput },
     });
 
     setIsLoading(false);
