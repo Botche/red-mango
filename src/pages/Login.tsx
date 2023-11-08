@@ -37,9 +37,9 @@ function Login() {
 
     if (response.data) {
       const { token } = response.data.result!;
+      localStorage.setItem("token", token);
 
       const { fullName, email, id, role }: UserModel = jwtDecode(token);
-      localStorage.setItem("token", token);
       dispatch(setLoggedInUser({ fullName, email, id, role }));
 
       navigate("/");
