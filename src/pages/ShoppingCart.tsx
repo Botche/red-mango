@@ -1,4 +1,5 @@
 import { CartPickUpDetails, CartSummary } from "../components/page/cart";
+import { withAuth } from "../hoc";
 
 function ShoppingCart() {
   return (
@@ -13,4 +14,4 @@ function ShoppingCart() {
   );
 }
 
-export default ShoppingCart;
+export default withAuth(ShoppingCart);

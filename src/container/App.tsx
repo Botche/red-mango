@@ -28,8 +28,10 @@ function App() {
 
   useEffect(() => {
     const token = localStorage.getItem("token")!;
-    const { fullName, email, id, role }: UserModel = jwtDecode(token);
-    dispatch(setLoggedInUser({ fullName, email, id, role }));
+    if (token) {
+      const { fullName, email, id, role }: UserModel = jwtDecode(token);
+      dispatch(setLoggedInUser({ fullName, email, id, role }));
+    }
   }, [dispatch]);
 
   useEffect(() => {
@@ -51,7 +53,7 @@ function App() {
           <Route path="/shoppingCart" element={<ShoppingCart />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          
+
           <Route path="/authentication" element={<AuthenticationTest />} />
           <Route path="/authorization" element={<AuthenticationTestAdmin />} />
           <Route path="/accessDenied" element={<AccessDenied />} />
