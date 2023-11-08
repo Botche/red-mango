@@ -1,11 +1,37 @@
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { getStatusColor } from "../../../helpers";
 import { CartItemModel } from "../../../interfaces";
 import OrderSummaryProps from "./OrderSummaryProps";
+import { OrderStatuses, Roles } from "../../../utility/constants";
+import { RootState } from "../../../storage/redux/store";
 
 function OrderSummary({ data, userInput }: OrderSummaryProps) {
   const navigate = useNavigate();
+  const userData = useSelector((state: RootState) => state.userAuthStore);
   const badgeTypeColor = getStatusColor(data.status);
+
+  let nextStatus: any = {};
+  switch (data.status) {
+    case OrderStatuses.CONFIRMED:
+      nextStatus = {
+        color: "info",
+        value: OrderStatuses.BEING_COOKED,
+      };
+      break;
+    case OrderStatuses.BEING_COOKED:
+      nextStatus = {
+        color: "warning",
+        value: OrderStatuses.READY_FOR_PICKUP,
+      };
+      break;
+    case OrderStatuses.READY_FOR_PICKUP:
+      nextStatus = {
+        color: "success",
+        value: OrderStatuses.COMPLETED,
+      };
+      break;
+  }
 
   return (
     <div>
@@ -52,6 +78,15 @@ function OrderSummary({ data, userInput }: OrderSummaryProps) {
         >
           Go back to Orders
         </button>
+
+        {userData.role && userData.role === Roles.ADMIN && (
+          <div>
+            <button className="btn btn-danger mx-1">Cancel</button>
+            <button className={`btn btn-${nextStatus.color} mx-2`}>
+              {nextStatus.value}
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
