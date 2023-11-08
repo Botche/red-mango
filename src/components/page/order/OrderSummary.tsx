@@ -5,11 +5,16 @@ import { CartItemModel } from "../../../interfaces";
 import OrderSummaryProps from "./OrderSummaryProps";
 import { OrderStatuses, Roles } from "../../../utility/constants";
 import { RootState } from "../../../storage/redux/store";
+import { useState } from "react";
+import { useUpdateOrderDetailsMutation } from "../../../apis/orderApi";
+import { MainLoader } from "../common";
 
 function OrderSummary({ data, userInput }: OrderSummaryProps) {
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const userData = useSelector((state: RootState) => state.userAuthStore);
   const badgeTypeColor = getStatusColor(data.status);
+  const [updateOrderHeader] = useUpdateOrderDetailsMutation();
 
   let nextStatus: any = {};
   switch (data.status) {
@@ -31,6 +36,32 @@ function OrderSummary({ data, userInput }: OrderSummaryProps) {
         value: OrderStatuses.COMPLETED,
       };
       break;
+  }
+
+  const handleCancel = async () => {
+    setIsLoading(true);
+
+    await updateOrderHeader({
+      orderHeaderId: data.id,
+      status: OrderStatuses.CANCELLED,
+    });
+
+    setIsLoading(false);
+  };
+
+  const handleNextStatus = async () => {
+    setIsLoading(true);
+
+    await updateOrderHeader({
+      id: data.id,
+      status: nextStatus.value,
+    });
+
+    setIsLoading(false);
+  };
+
+  if (isLoading) {
+    return <MainLoader />;
   }
 
   return (
@@ -81,8 +112,13 @@ function OrderSummary({ data, userInput }: OrderSummaryProps) {
 
         {userData.role && userData.role === Roles.ADMIN && (
           <div>
-            <button className="btn btn-danger mx-1">Cancel</button>
-            <button className={`btn btn-${nextStatus.color} mx-2`}>
+            <button className="btn btn-danger mx-1" onClick={handleCancel}>
+              Cancel
+            </button>
+            <button
+              className={`btn btn-${nextStatus.color} mx-2`}
+              onClick={handleNextStatus}
+            >
               {nextStatus.value}
             </button>
           </div>
