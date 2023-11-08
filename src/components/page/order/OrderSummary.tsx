@@ -42,7 +42,7 @@ function OrderSummary({ data, userInput }: OrderSummaryProps) {
     setIsLoading(true);
 
     await updateOrderHeader({
-      orderHeaderId: data.id,
+      id: data.id,
       status: OrderStatuses.CANCELLED,
     });
 
@@ -90,14 +90,14 @@ function OrderSummary({ data, userInput }: OrderSummaryProps) {
                   </div>
                   <p style={{ width: "70px", textAlign: "right" }}>
                     $
-                    {(cartItem.menuItem?.price ?? 0) * (cartItem.quantity ?? 0)}
+                    {((cartItem.menuItem?.price ?? 0) * (cartItem.quantity ?? 0)).toFixed(2)}
                   </p>
                 </div>
               );
             })}
             <hr />
             <h4 className="text-danger" style={{ textAlign: "right" }}>
-              ${data.cartTotal}
+              ${data.cartTotal.toFixed(2)}
             </h4>
           </div>
         </div>
