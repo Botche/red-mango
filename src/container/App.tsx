@@ -1,5 +1,6 @@
+import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { jwtDecode } from "jwt-decode";
 
 import { Header, Footer } from "../components/layout";
@@ -14,17 +15,18 @@ import {
   Register,
   ShoppingCart,
 } from "../pages";
-import { useEffect } from "react";
 import { useGetShoppingCartQuery } from "../apis/shoppingCartApi";
 import { setShoppingCart } from "../storage/redux/shoppingCartSlice";
 import { UserModel } from "../interfaces";
 import { setLoggedInUser } from "../storage/redux/userAuthSlice";
+import { RootState } from "../storage/redux/store";
 
 function App() {
   const dispatch = useDispatch();
-  const { data, isLoading } = useGetShoppingCartQuery(
-    "4b6624b9-775a-4e27-82ad-40939ee612f5"
+  const userData: UserModel = useSelector(
+    (state: RootState) => state.userAuthStore
   );
+  const { data, isLoading } = useGetShoppingCartQuery(userData.id);
 
   useEffect(() => {
     const token = localStorage.getItem("token")!;
@@ -35,10 +37,10 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    if (!isLoading) {
-      dispatch(setShoppingCart(data.result?.cartItems));
+    if (!isLoading && userData.id) {
+      dispatch(setShoppingCart(data?.result?.cartItems));
     }
-  }, [data, isLoading, dispatch]);
+  }, [data, isLoading, dispatch, userData]);
 
   return (
     <div className="">

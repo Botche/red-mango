@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { useGetMenuItemByIdQuery } from "../apis/menuItemApi";
 import { useUpdateShoppingCartMutation } from "../apis/shoppingCartApi";
 import { MainLoader, MiniLoader } from "../components/page/common";
-import { ApiResponse } from "../interfaces";
+import { ApiResponse, UserModel } from "../interfaces";
 import { toastNotify } from "../helpers";
 import { RootState } from "../storage/redux/store";
 
@@ -13,7 +13,9 @@ function MenuItemDetails() {
   const [quantity, setQuantity] = useState(1);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
   const navigate = useNavigate();
-  const userData = useSelector((state: RootState) => state.userAuthStore);
+  const userData: UserModel = useSelector(
+    (state: RootState) => state.userAuthStore
+  );
   const { data, isLoading } = useGetMenuItemByIdQuery(menuItemId);
   const [updateShoppingCart] = useUpdateShoppingCartMutation();
 
@@ -38,7 +40,7 @@ function MenuItemDetails() {
     const response: ApiResponse = await updateShoppingCart({
       menuItemId,
       updateQuantityBy: quantity,
-      userId: "4b6624b9-775a-4e27-82ad-40939ee612f5", // hardcoded user id
+      userId: userData.id,
     });
 
     if (response.data && response.data.isSuccess) {
