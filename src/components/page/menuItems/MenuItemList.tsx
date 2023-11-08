@@ -12,7 +12,7 @@ function MenuItemList() {
 
   useEffect(() => {
     if (!isLoading) {
-      dispatch(setMenuItem(data.result));
+      dispatch(setMenuItem(data?.result));
     }
   }, [isLoading, dispatch, data]);
 
