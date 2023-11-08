@@ -7,6 +7,7 @@ import {
   emptyUserState,
   setLoggedInUser,
 } from "../../storage/redux/userAuthSlice";
+import { Roles } from "../../utility/constants";
 
 const logo = require("../../assets/images/mango.png");
 
@@ -56,6 +57,40 @@ function Header() {
                 Home
               </NavLink>
             </li>
+            {userData.role && userData.role === Roles.ADMIN ? (
+              <li className="nav-item dropdown">
+                <a
+                  className="nav-link dropdown-toggle"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Admin Panel
+                </a>
+                <ul className="dropdown-menu">
+                  <li className="dropdown-item" aria-current="page">
+                    <NavLink to="/order/myOrders">My Orders</NavLink>
+                  </li>
+                  <li>
+                    <a className="dropdown-item" href="#">
+                      Something else here
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            ) : (
+              <li className="nav-item">
+                <NavLink
+                  className="nav-link"
+                  aria-current="page"
+                  to="/order/myOrders"
+                >
+                  Orders
+                </NavLink>
+              </li>
+            )}
+
             <li className="nav-item">
               <NavLink
                 className="nav-link"
@@ -65,39 +100,6 @@ function Header() {
                 <i className="bi bi-cart"></i>&nbsp;
                 {userData.id && `(${shoppingCartFromStore.length})`}
               </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" aria-current="page" to="/order/myOrders">
-                Orders
-              </NavLink>
-            </li>
-            <li className="nav-item dropdown">
-              <a
-                className="nav-link dropdown-toggle"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Admin Panel
-              </a>
-              <ul className="dropdown-menu">
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Action
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Another action
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Something else here
-                  </a>
-                </li>
-              </ul>
             </li>
             <div className="d-flex" style={{ marginLeft: "auto" }}>
               {userData.id ? (

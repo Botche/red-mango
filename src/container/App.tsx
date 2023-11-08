@@ -42,7 +42,7 @@ function App() {
 
   useEffect(() => {
     if (isSuccess && !isLoading) {
-      dispatch(setShoppingCart(currentData.result.cartItems));
+      dispatch(setShoppingCart(currentData?.result.cartItems));
     }
   }, [isLoading, isSuccess, currentData, dispatch]);
 
