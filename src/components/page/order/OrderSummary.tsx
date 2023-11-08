@@ -1,6 +1,6 @@
-import React from "react";
+import OrderSummaryProps from "./OrderSummaryProps";
 
-function OrderSummary() {
+function OrderSummary({ data, userInput }: OrderSummaryProps) {
   return (
     <div>
       <h3 className="text-success">Order Summary</h3>
