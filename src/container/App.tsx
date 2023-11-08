@@ -10,6 +10,7 @@ import {
   Login,
   MenuItemDetails,
   NotFound,
+  Payment,
   Register,
   ShoppingCart,
 } from "../pages";
@@ -57,6 +58,7 @@ function App() {
           <Route path="/shoppingCart" element={<ShoppingCart />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/payment" element={<Payment />} />
 
           <Route path="/accessDenied" element={<AccessDenied />} />
 
