@@ -15,7 +15,9 @@ import {
   Register,
   ShoppingCart,
 } from "../pages";
-import { useGetShoppingCartQuery } from "../apis/shoppingCartApi";
+import {
+  useLazyGetShoppingCartQuery,
+} from "../apis/shoppingCartApi";
 import { setShoppingCart } from "../storage/redux/shoppingCartSlice";
 import { UserModel } from "../interfaces";
 import { setLoggedInUser } from "../storage/redux/userAuthSlice";
@@ -26,21 +28,23 @@ function App() {
   const userData: UserModel = useSelector(
     (state: RootState) => state.userAuthStore
   );
-  const { data, isLoading } = useGetShoppingCartQuery(userData.id);
+  const [getShoppingCart, { isLoading, isSuccess, currentData }] =
+    useLazyGetShoppingCartQuery();
 
   useEffect(() => {
     const token = localStorage.getItem("token")!;
     if (token) {
       const { fullName, email, id, role }: UserModel = jwtDecode(token);
       dispatch(setLoggedInUser({ fullName, email, id, role }));
+      getShoppingCart(id);
     }
-  }, [dispatch]);
+  }, [dispatch, getShoppingCart, userData]);
 
   useEffect(() => {
-    if (!isLoading && userData.id) {
-      dispatch(setShoppingCart(data?.result?.cartItems));
+    if (isSuccess && !isLoading) {
+      dispatch(setShoppingCart(currentData.result.cartItems));
     }
-  }, [data, isLoading, dispatch, userData]);
+  }, [isLoading, isSuccess, currentData, dispatch]);
 
   return (
     <div className="">
