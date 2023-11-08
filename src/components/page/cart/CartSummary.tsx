@@ -11,7 +11,8 @@ function CartSummary() {
   const dispatch = useDispatch();
   const [updateShoppingCart] = useUpdateShoppingCartMutation();
   const shoppingCartFromStore: CartItemModel[] = useSelector(
-    (state: RootState) => state.shoppingCartStore.cartItems ?? []
+    (state: RootState) => state.shoppingCartStore.cartItems
+  );
   );
 
   if (!shoppingCartFromStore) {

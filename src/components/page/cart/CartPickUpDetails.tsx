@@ -13,7 +13,7 @@ function CartPickUpDetails() {
     phoneNumber: "",
   });
   const shoppingCartFromStore: CartItemModel[] = useSelector(
-    (state: RootState) => state.shoppingCartStore.cartItems ?? []
+    (state: RootState) => state.shoppingCartStore.cartItems
   );
 
   let grandTotal = 0;
