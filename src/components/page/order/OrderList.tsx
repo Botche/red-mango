@@ -1,7 +1,10 @@
+import { useNavigate } from "react-router-dom";
 import OrderListProps from "./OrderListType";
 import { OrderHeaderModel } from "../../../interfaces";
 
 function OrderList({ orderData }: OrderListProps) {
+  const navigate = useNavigate();
+
   return (
     <div className="table p-5">
       <h1 className="text-success">Orders List</h1>
@@ -27,7 +30,14 @@ function OrderList({ orderData }: OrderListProps) {
                 {new Date(orderHeader.orderDate).toLocaleDateString("en-US")}
               </div>
               <div className="col-2">
-                <button className="btn btn-success">Details</button>
+                <button
+                  className="btn btn-success"
+                  onClick={() =>
+                    navigate(`/order/orderDetails/${orderHeader.id}`)
+                  }
+                >
+                  Details
+                </button>
               </div>
             </div>
           );

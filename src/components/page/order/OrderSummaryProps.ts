@@ -5,8 +5,9 @@ export default interface OrderSummaryProps {
     id: string;
     cartItems: ShoppingCartModel[];
     cartTotal: number;
-    userId: string;
-    stripePaymentIntentId: string;
+    userId?: string;
+    stripePaymentIntentId?: string;
+    status: string;
   };
   userInput: {
     name: string;

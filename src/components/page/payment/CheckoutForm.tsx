@@ -75,8 +75,8 @@ function CheckoutForm({ data, userInput }: OrderSummaryProps) {
         pickupName: userInput.name,
         pickupPhoneNumber: userInput.phoneNumber,
         status: orderStatus,
-        stripePaymentIntentId: data.stripePaymentIntentId,
-        userId: data.userId,
+        stripePaymentIntentId: data.stripePaymentIntentId!,
+        userId: data.userId!,
         orderDetails: orderDetails,
       };
 

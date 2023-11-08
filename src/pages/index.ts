@@ -8,6 +8,7 @@ import AccessDenied from "./AccessDenied";
 import Payment from "./Payment";
 import OrderConfirmed from "./order/OrderConfirmed";
 import MyOrders from "./order/MyOrders";
+import OrderDetails from "./order/OrderDetails";
 
 export {
   Home,
@@ -20,4 +21,5 @@ export {
   Payment,
   OrderConfirmed,
   MyOrders,
+  OrderDetails,
 };
