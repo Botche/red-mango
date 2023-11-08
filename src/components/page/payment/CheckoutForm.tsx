@@ -15,7 +15,6 @@ import {
 } from "../../../interfaces";
 import { useCreateOrderMutation } from "../../../apis/orderApi";
 import { OrderStatuses } from "../../../utility/constants";
-import { MiniLoader } from "../common";
 
 function CheckoutForm({ data, userInput }: OrderSummaryProps) {
   const [isProcessing, setIsProcessing] = useState(false);
