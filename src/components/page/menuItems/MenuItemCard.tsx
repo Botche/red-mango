@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { MenuItemModel } from "../../../interfaces";
+import { ApiResponse, MenuItemModel } from "../../../interfaces";
 import { useUpdateShoppingCartMutation } from "../../../apis/shoppingCartApi";
 import { MiniLoader } from "../common";
+import { toastNotify } from "../../../helpers";
 
 interface MenuItemCardProps {
   menuItem: MenuItemModel;
@@ -15,11 +16,15 @@ function MenuItemCard(props: MenuItemCardProps) {
   const handleAddToCart = async (menuItemId: string) => {
     setIsAddingToCart(true);
 
-    await updateShoppingCart({
+    const response: ApiResponse = await updateShoppingCart({
       menuItemId,
       updateQuantityBy: 1,
       userId: "4b6624b9-775a-4e27-82ad-40939ee612f5", // hardcoded user id
     });
+
+    if (response.data && response.data.isSuccess) {
+      toastNotify("Item added to cart successfully!");
+    }
 
     setIsAddingToCart(false);
   };

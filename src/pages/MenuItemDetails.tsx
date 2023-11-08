@@ -4,10 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useUpdateShoppingCartMutation } from "../apis/shoppingCartApi";
 import { MainLoader, MiniLoader } from "../components/page/common";
+import { ApiResponse } from "../interfaces";
+import { toastNotify } from "../helpers";
 
 function MenuItemDetails() {
   const { menuItemId } = useParams();
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
   const navigate = useNavigate();
   const { data, isLoading } = useGetMenuItemByIdQuery(menuItemId);
@@ -17,7 +19,7 @@ function MenuItemDetails() {
     let newQuantity = quantity + counter;
 
     if (newQuantity <= 0) {
-      newQuantity = 0;
+      newQuantity = 1;
     }
 
     setQuantity(newQuantity);
@@ -26,11 +28,15 @@ function MenuItemDetails() {
   const handleAddToCart = async (menuItemId: string) => {
     setIsAddingToCart(true);
 
-    await updateShoppingCart({
+    const response: ApiResponse = await updateShoppingCart({
       menuItemId,
       updateQuantityBy: quantity,
       userId: "4b6624b9-775a-4e27-82ad-40939ee612f5", // hardcoded user id
     });
+
+    if (response.data && response.data.isSuccess) {
+      toastNotify("Item added to cart successfully!");
+    }
 
     setIsAddingToCart(false);
   };

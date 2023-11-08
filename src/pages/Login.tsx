@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { inputHelper } from "../helpers";
+import { inputHelper, toastNotify } from "../helpers";
 import { ApiResponse, UserModel } from "../interfaces";
 import { useLoginUserMutation } from "../apis/authApi";
 import { jwtDecode } from "jwt-decode";
@@ -9,7 +9,6 @@ import { setLoggedInUser } from "../storage/redux/userAuthSlice";
 import { MainLoader } from "../components/page/common";
 
 function Login() {
-  const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [userInput, setUserInput] = useState({
     userName: "",
@@ -27,7 +26,6 @@ function Login() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setError("");
     setIsLoading(true);
 
     const response: ApiResponse = await loginUser({
@@ -42,9 +40,10 @@ function Login() {
       const { fullName, email, id, role }: UserModel = jwtDecode(token);
       dispatch(setLoggedInUser({ fullName, email, id, role }));
 
+      toastNotify("Login successful!");
       navigate("/");
     } else if (response.error) {
-      setError(response.error.data.errorMessages[0]);
+      toastNotify(response.error.data.errorMessages[0], "error");
     }
 
     setIsLoading(false);
@@ -85,7 +84,6 @@ function Login() {
         </div>
 
         <div className="mt-2">
-          {error && <p className="text-danger">{error}</p>}
           <button
             type="submit"
             className="btn btn-success"
