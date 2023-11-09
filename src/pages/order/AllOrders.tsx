@@ -33,6 +33,8 @@ function AllOrders() {
     ...(apiFilters && {
       searchString: apiFilters.searchString,
       status: apiFilters.status,
+      pageNumber: pageOptions.pageNumber,
+      pageSuze: pageOptions.pageSize,
     }),
   });
 
@@ -59,13 +61,36 @@ function AllOrders() {
     });
   };
 
+  const getPageDetails = () => {
+    const dataStartNumber =
+      (pageOptions.pageNumber - 1) * pageOptions.pageSize + 1;
+    const dataEndNumber = pageOptions.pageNumber * pageOptions.pageSize;
+
+    return `${dataStartNumber} - ${
+      dataEndNumber < totalRecords ? dataEndNumber : totalRecords
+    } of ${totalRecords}`;
+  };
+
+  const handlePaginationClick = (direction: "prev" | "next") => {
+    if (direction === "prev") {
+      setPageOptions({
+        pageSize: 5,
+        pageNumber: pageOptions.pageNumber - 1,
+      });
+    } else if (direction === "next") {
+      setPageOptions({
+        pageSize: 5,
+        pageNumber: pageOptions.pageNumber + 1,
+      });
+    }
+  };
+
   if (isLoading) {
     return <MainLoader />;
   }
 
   return (
     <Fragment>
-      {totalRecords}
       <div className="d-flex align-items-center justify-content-between mx-5 mt-5">
         <h1 className="text-success">Orders List</h1>
 
@@ -96,6 +121,26 @@ function AllOrders() {
         </div>
       </div>
       <OrderList orderData={ordersData} />
+
+      <div className="d-flex mx-5 justify-content-end align-items-center">
+        <button
+          disabled={pageOptions.pageNumber === 1}
+          className="btn btn-outline-primary px-3 mx-2"
+          onClick={() => handlePaginationClick("prev")}
+        >
+          <i className="bi bi-chevron-left"></i>
+        </button>
+        <div className="mx-2">{getPageDetails()}</div>
+        <button
+          disabled={
+            pageOptions.pageNumber * pageOptions.pageSize >= totalRecords
+          }
+          className="btn btn-outline-primary px-3 mx-2"
+          onClick={() => handlePaginationClick("next")}
+        >
+          <i className="bi bi-chevron-right"></i>
+        </button>
+      </div>
     </Fragment>
   );
 }
