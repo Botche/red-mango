@@ -7,12 +7,20 @@ import {
   useUpdateMenuItemMutation,
 } from "../../apis/menuItemApi";
 import { MainLoader } from "../../components/page/common";
+import { Categories } from "../../utility/constants";
+
+const categories = [
+  Categories.APPETIZER,
+  Categories.BEVERAGES,
+  Categories.DESSERT,
+  Categories.ENTREE,
+];
 
 const menuItemData = {
   name: "",
   description: "",
   specialTag: "",
-  category: "",
+  category: categories[0],
   price: "",
 };
 
@@ -49,7 +57,9 @@ function MenuItemUpsert() {
   }, [data]);
 
   const handleMenuItemInput = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    event: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
     const tempData = inputHelper(event, menuItemInputs);
     setMenuItemInputs(tempData);
@@ -163,14 +173,19 @@ function MenuItemUpsert() {
               value={menuItemInputs.specialTag}
               onChange={handleMenuItemInput}
             />
-            <input
-              type="text"
-              className="form-control mt-3"
+            <select
+              className="form-control mt-3 form-select"
               placeholder="Enter Category"
               name="category"
               value={menuItemInputs.category}
               onChange={handleMenuItemInput}
-            />
+            >
+              {categories.map((category: string, index: number) => (
+                <option key={index} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
             <input
               type="number"
               className="form-control mt-3"
