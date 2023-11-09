@@ -9,9 +9,12 @@ import { MainLoader } from "../../components/page/common";
 function MyOrders() {
   const [skipGetAllOrders, setSkipGetAllOrders] = useState(true);
   const userId = useSelector((state: RootState) => state.userAuthStore.id);
-  const { data: orders } = useGetAllOrdersQuery(userId, {
-    skip: skipGetAllOrders,
-  });
+  const { data: orders } = useGetAllOrdersQuery(
+    { userId },
+    {
+      skip: skipGetAllOrders,
+    }
+  );
 
   useEffect(() => {
     if (userId) {
