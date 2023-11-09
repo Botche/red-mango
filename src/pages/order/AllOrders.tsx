@@ -29,12 +29,13 @@ function AllOrders() {
     pageNumber: 1,
     pageSize: 5,
   });
+  const [currentPageSize, setCurrentPageSize] = useState(pageOptions.pageSize);
   const { data, isLoading } = useGetAllOrdersQuery({
     ...(apiFilters && {
       searchString: apiFilters.searchString,
       status: apiFilters.status,
       pageNumber: pageOptions.pageNumber,
-      pageSuze: pageOptions.pageSize,
+      pageSize: pageOptions.pageSize,
     }),
   });
 
@@ -85,6 +86,17 @@ function AllOrders() {
     }
   };
 
+  const handlePageSizeChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const pageSize = +event.target.value;
+    setPageOptions({
+      pageSize: pageSize,
+      pageNumber: pageOptions.pageNumber,
+    });
+    setCurrentPageSize(pageSize);
+  };
+
   if (isLoading) {
     return <MainLoader />;
   }
@@ -123,6 +135,22 @@ function AllOrders() {
       <OrderList orderData={ordersData} />
 
       <div className="d-flex mx-5 justify-content-end align-items-center">
+        <div>Rows per page:</div>
+        <div>
+          <select
+            className="form-select mx-2"
+            onChange={handlePageSizeChange}
+            style={{
+              width: "80px",
+            }}
+            value={currentPageSize}
+          >
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+          </select>
+        </div>
         <button
           disabled={pageOptions.pageNumber === 1}
           className="btn btn-outline-primary px-3 mx-2"
