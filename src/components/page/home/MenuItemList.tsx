@@ -14,7 +14,7 @@ function MenuItemList() {
 
   useEffect(() => {
     if (data) {
-      const tempMenuArray = handleFilters(searchValue);
+      const tempMenuArray = handleFilters(selectedCategory, searchValue);
       setMenuItems(tempMenuArray);
     }
   }, [searchValue, data]);
@@ -30,8 +30,39 @@ function MenuItemList() {
     setCategoryList(tempCategoryList);
   }, [data]);
 
-  const handleFilters = (search: string) => {
+  const handleCategoryClick = (newIndex: number) => {
+    const buttons = document.querySelectorAll(".custom-buttons");
+    let localCategory;
+    buttons.forEach((button, buttonIndex) => {
+      if (buttonIndex === newIndex) {
+        button.classList.add("active");
+
+        if (buttonIndex === 0) {
+          localCategory = "All";
+        } else {
+          localCategory = categoryList[buttonIndex];
+        }
+
+        setSelectedCategory(localCategory);
+
+        const filteredMenuItems = handleFilters(localCategory, searchValue);
+        setMenuItems(filteredMenuItems);
+
+        return;
+      }
+
+      button.classList.remove("active");
+    });
+  };
+
+  const handleFilters = (category: string, search: string) => {
     let tempMenuItems = [...data];
+
+    if (category && category !== "All") {
+      tempMenuItems = data.filter(
+        (item: MenuItemModel) => item.category === category
+      );
+    }
 
     if (search) {
       const tempSearchMenuItems = [...tempMenuItems];
@@ -53,6 +84,7 @@ function MenuItemList() {
                 className={`nav-link p-0 pb-2 custom-buttons fs-5 ${
                   index === 0 && "active"
                 }`}
+                onClick={() => handleCategoryClick(index)}
               >
                 {category}
               </button>
