@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { withAdminAuth } from "../../hoc";
 import { useGetAllOrdersQuery } from "../../apis/orderApi";
 import { OrderList } from "../../components/page/order";
@@ -15,17 +15,40 @@ const statusFilterOptions = [
 ];
 
 function AllOrders() {
-  const { data, isLoading } = useGetAllOrdersQuery("");
+  const [ordersData, setOrdersData] = useState([]);
   const [filters, setFilters] = useState({
     searchString: "",
     status: "",
   });
+  const [apiFilters, setApiFilters] = useState({
+    searchString: "",
+    status: "",
+  });
+  const { data, isLoading } = useGetAllOrdersQuery({
+    ...(apiFilters && {
+      searchString: apiFilters.searchString,
+      status: apiFilters.status,
+    }),
+  });
+
+  useEffect(() => {
+    if (data) {
+      setOrdersData(data.result);
+    }
+  }, [data]);
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const tempValue = inputHelper(event, filters);
     setFilters(tempValue);
+  };
+
+  const handleFilters = () => {
+    setApiFilters({
+      searchString: filters.searchString,
+      status: filters.status,
+    });
   };
 
   if (isLoading) {
@@ -58,10 +81,12 @@ function AllOrders() {
             ))}
           </select>
 
-          <button className="btn btn-outline-success">Filter</button>
+          <button className="btn btn-outline-success" onClick={handleFilters}>
+            Filter
+          </button>
         </div>
       </div>
-      <OrderList orderData={data.result} />
+      <OrderList orderData={ordersData} />
     </Fragment>
   );
 }

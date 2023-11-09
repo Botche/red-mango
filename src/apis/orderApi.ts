@@ -14,10 +14,12 @@ const orderApi = createApi({
   tagTypes: ["Orders"],
   endpoints: (builder) => ({
     getAllOrders: builder.query({
-      query: (userId) => ({
+      query: ({ userId, searchString, status }) => ({
         url: "order",
         params: {
-          userId: userId,
+          ...(userId && { userId }),
+          ...(searchString && { searchString }),
+          ...(status && { status }),
         },
       }),
       providesTags: ["Orders"],
