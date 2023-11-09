@@ -9,6 +9,8 @@ function MenuItemList() {
     (state: RootState) => state.menuItemStore
   );
   const [menuItems, setMenuItems] = useState<MenuItemModel[]>(data);
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [categoryList, setCategoryList] = useState<string[]>([]);
 
   useEffect(() => {
     if (data) {
@@ -16,6 +18,17 @@ function MenuItemList() {
       setMenuItems(tempMenuArray);
     }
   }, [searchValue, data]);
+
+  useEffect(() => {
+    const tempCategoryList = ["All"];
+    data.forEach((item: MenuItemModel) => {
+      if (!tempCategoryList.includes(item.category)) {
+        tempCategoryList.push(item.category);
+      }
+    });
+
+    setCategoryList(tempCategoryList);
+  }, [data]);
 
   const handleFilters = (search: string) => {
     let tempMenuItems = [...data];
@@ -32,6 +45,22 @@ function MenuItemList() {
 
   return (
     <div className="container row">
+      <div className="my-3">
+        <ul className="nav w-100 d-flex justify-content-center">
+          {categoryList.map((category: string, index: number) => (
+            <li className="nav-item" key={index}>
+              <button
+                className={`nav-link p-0 pb-2 custom-buttons fs-5 ${
+                  index === 0 && "active"
+                }`}
+              >
+                {category}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+
       {menuItems.length > 0 &&
         menuItems.map((menuItem: MenuItemModel, index: number) => (
           <MenuItemCard key={index} menuItem={menuItem} />
