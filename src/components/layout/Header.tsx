@@ -73,6 +73,15 @@ function Header() {
                     <NavLink
                       className="dropdown-item"
                       aria-current="page"
+                      to="/menuItem/menuItemList"
+                    >
+                      Menu Items
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      className="dropdown-item"
+                      aria-current="page"
                       to="/order/myOrders"
                     >
                       My Orders
