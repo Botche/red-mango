@@ -5,15 +5,6 @@ import { RootState } from "../../storage/redux/store";
 import { useGetAllOrdersQuery } from "../../apis/orderApi";
 import { OrderList } from "../../components/page/order";
 import { MainLoader } from "../../components/page/common";
-import { OrderStatuses } from "../../utility/constants";
-
-const statusFilterOptions = [
-  "All",
-  OrderStatuses.CONFIRMED,
-  OrderStatuses.BEING_COOKED,
-  OrderStatuses.READY_FOR_PICKUP,
-  OrderStatuses.CANCELLED,
-];
 
 function MyOrders() {
   const [skipGetAllOrders, setSkipGetAllOrders] = useState(true);

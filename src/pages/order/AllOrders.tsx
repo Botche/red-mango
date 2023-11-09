@@ -1,11 +1,32 @@
+import { Fragment, useState } from "react";
 import { withAdminAuth } from "../../hoc";
 import { useGetAllOrdersQuery } from "../../apis/orderApi";
 import { OrderList } from "../../components/page/order";
 import { MainLoader } from "../../components/page/common";
-import { Fragment } from "react";
+import { inputHelper } from "../../helpers";
+import { OrderStatuses } from "../../utility/constants";
+
+const statusFilterOptions = [
+  "All",
+  OrderStatuses.CONFIRMED,
+  OrderStatuses.BEING_COOKED,
+  OrderStatuses.READY_FOR_PICKUP,
+  OrderStatuses.CANCELLED,
+];
 
 function AllOrders() {
   const { data, isLoading } = useGetAllOrdersQuery("");
+  const [filters, setFilters] = useState({
+    searchString: "",
+    status: "",
+  });
+
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const tempValue = inputHelper(event, filters);
+    setFilters(tempValue);
+  };
 
   if (isLoading) {
     return <MainLoader />;
@@ -21,9 +42,20 @@ function AllOrders() {
             type="text"
             className="form-control mx-2"
             placeholder="Search Name, Email or Phone"
+            name="searchString"
+            value={filters.searchString}
+            onChange={handleChange}
           />
-          <select name="" className="form-select w-50 mx-2">
-            <option value="All">All</option>
+          <select
+            name="status"
+            className="form-select w-50 mx-2"
+            onChange={handleChange}
+          >
+            {statusFilterOptions.map((item, index) => (
+              <option value={item === "All" ? "" : item} key={index}>
+                {item}
+              </option>
+            ))}
           </select>
 
           <button className="btn btn-outline-success">Filter</button>
