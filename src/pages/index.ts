@@ -11,6 +11,7 @@ import MyOrders from "./order/MyOrders";
 import OrderDetails from "./order/OrderDetails";
 import AllOrders from "./order/AllOrders";
 import MenuItemList from "./menuItem/MenuItemList";
+import MenuItemUpsert from "./menuItem/MenuItemUpsert";
 
 export {
   AllOrders,
@@ -25,5 +26,6 @@ export {
   OrderConfirmed,
   MyOrders,
   OrderDetails,
-  MenuItemList
+  MenuItemList,
+  MenuItemUpsert,
 };

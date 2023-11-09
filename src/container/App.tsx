@@ -11,6 +11,7 @@ import {
   Login,
   MenuItemDetails,
   MenuItemList,
+  MenuItemUpsert,
   MyOrders,
   NotFound,
   OrderConfirmed,
@@ -86,6 +87,10 @@ function App() {
           <Route path="/order/orderDetails/:id" element={<OrderDetails />} />
           <Route path="/order/allOrders" element={<AllOrders />} />
           <Route path="/menuItem/menuItemList" element={<MenuItemList />} />
+          <Route
+            path="/menuItem/menuItemUpsert/:id?"
+            element={<MenuItemUpsert />}
+          />
 
           <Route path="/accessDenied" element={<AccessDenied />} />
 

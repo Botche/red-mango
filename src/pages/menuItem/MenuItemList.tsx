@@ -1,19 +1,24 @@
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { RootState } from "../../storage/redux/store";
 import { MenuItemModel } from "../../interfaces";
 
 function MenuItemList() {
+  const navigate = useNavigate();
   const menuItems = useSelector(
     (state: RootState) => state.menuItemStore.menuItem
   );
-
-  console.log(menuItems);
 
   return (
     <div className="table p-5">
       <div className="d-flex align-items-center justify-content-between">
         <h1 className="text-success">MenuItem List</h1>
-        <button className="btn btn-success">Add New</button>
+        <button
+          className="btn btn-success"
+          onClick={() => navigate("/menuItem/menuItemUpsert")}
+        >
+          Add New
+        </button>
       </div>
       <div className="p-2">
         <div className="row border">
@@ -41,7 +46,12 @@ function MenuItemList() {
             <div className="col-2">{menuItem.specialTag}</div>
             <div className="col-1">
               <button className="btn btn-success">
-                <i className="bi bi-pencil-fill"></i>
+                <i
+                  className="bi bi-pencil-fill"
+                  onClick={() =>
+                    navigate(`/menuItem/menuItemUpsert/${menuItem.id}`)
+                  }
+                ></i>
               </button>
               <button className="btn btn-danger mx-2">
                 <i className="bi bi-trash-fill"></i>
