@@ -24,6 +24,11 @@ function AllOrders() {
     searchString: "",
     status: "",
   });
+  const [totalRecords, setTotalRecords] = useState(0);
+  const [pageOptions, setPageOptions] = useState({
+    pageNumber: 1,
+    pageSize: 5,
+  });
   const { data, isLoading } = useGetAllOrdersQuery({
     ...(apiFilters && {
       searchString: apiFilters.searchString,
@@ -33,7 +38,10 @@ function AllOrders() {
 
   useEffect(() => {
     if (data) {
-      setOrdersData(data.result);
+      setOrdersData(data.apiResponse.result);
+
+      const { TotalRecords } = JSON.parse(data.totalRecords);
+      setTotalRecords(TotalRecords);
     }
   }, [data]);
 
@@ -57,6 +65,7 @@ function AllOrders() {
 
   return (
     <Fragment>
+      {totalRecords}
       <div className="d-flex align-items-center justify-content-between mx-5 mt-5">
         <h1 className="text-success">Orders List</h1>
 

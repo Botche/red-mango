@@ -22,7 +22,7 @@ function MyOrders() {
     }
   }, [userId]);
 
-  if (!orders || !orders.result) {
+  if (!orders || !orders.apiResponse.result) {
     return <MainLoader />;
   }
 
@@ -31,7 +31,7 @@ function MyOrders() {
       <div className="d-flex align-items-center justify-content-between mx-5 mt-5">
         <h1 className="text-success">My Orders</h1>
       </div>
-      <OrderList orderData={orders.result} />
+      <OrderList orderData={orders.apiResponse.result} />
     </Fragment>
   );
 }
