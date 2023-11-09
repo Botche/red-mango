@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ApiResponse, CartItemModel, UserModel } from "../../../interfaces";
@@ -30,6 +30,14 @@ function CartPickUpDetails() {
     totalItems += cartItem.quantity ?? 0;
     grandTotal += (cartItem.menuItem?.price ?? 0) * (cartItem.quantity ?? 0);
   });
+
+  useEffect(() => {
+    setUserInput({
+      name: userData.fullName,
+      email: userData.email,
+      phoneNumber: "",
+    });
+  }, [userData]);
 
   const handleUserInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const tempData = inputHelper(event, userInput);
