@@ -37,7 +37,7 @@ function MenuItemUpsert() {
   const [updateMenuItem] = useUpdateMenuItemMutation();
 
   const { id } = useParams();
-  const { data } = useGetMenuItemByIdQuery(id);
+  const { data } = useGetMenuItemByIdQuery(id ?? "");
 
   useEffect(() => {
     setIsLoading(true);
