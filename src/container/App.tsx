@@ -24,14 +24,20 @@ import { setShoppingCart } from "../storage/redux/shoppingCartSlice";
 import { UserModel } from "../interfaces";
 import { setLoggedInUser } from "../storage/redux/userAuthSlice";
 import { RootState } from "../storage/redux/store";
+import { useGetMenuItemsQuery } from "../apis/menuItemApi";
+import { setMenuItem } from "../storage/redux/menuItemSlice";
+import { MainLoader } from "../components/page/common";
 
 function App() {
   const dispatch = useDispatch();
   const userData: UserModel = useSelector(
     (state: RootState) => state.userAuthStore
   );
-  const [getShoppingCart, { isLoading, isSuccess, currentData }] =
-    useLazyGetShoppingCartQuery();
+  const [
+    getShoppingCart,
+    { isLoading: isGetShoppingCartLoading, isSuccess, currentData },
+  ] = useLazyGetShoppingCartQuery();
+  const { data, isLoading: isGetMenuItemsLoading } = useGetMenuItemsQuery(null);
 
   useEffect(() => {
     const token = localStorage.getItem("token")!;
@@ -43,10 +49,20 @@ function App() {
   }, [dispatch, getShoppingCart, userData]);
 
   useEffect(() => {
-    if (isSuccess && !isLoading) {
+    if (isSuccess && !isGetShoppingCartLoading) {
       dispatch(setShoppingCart(currentData?.result.cartItems));
     }
-  }, [isLoading, isSuccess, currentData, dispatch]);
+  }, [isGetShoppingCartLoading, isSuccess, currentData, dispatch]);
+
+  useEffect(() => {
+    if (!isGetMenuItemsLoading) {
+      dispatch(setMenuItem(data.result));
+    }
+  }, [isGetMenuItemsLoading, data, dispatch]);
+
+  if (isGetMenuItemsLoading) {
+    return <MainLoader />;
+  }
 
   return (
     <div className="">
