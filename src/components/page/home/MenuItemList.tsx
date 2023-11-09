@@ -3,6 +3,14 @@ import { useSelector } from "react-redux";
 import { MenuItemModel } from "../../../interfaces";
 import MenuItemCard from "./MenuItemCard";
 import { RootState } from "../../../storage/redux/store";
+import { SortingTypes } from "../../../utility/constants";
+
+const sortOptions: SortingTypes[] = [
+  SortingTypes.NAME_A_Z,
+  SortingTypes.NAME_Z_A,
+  SortingTypes.PRICE_LOW_HIGH,
+  SortingTypes.PRICE_HIGH_LOW,
+];
 
 function MenuItemList() {
   const { search: searchValue, menuItem: data } = useSelector(
@@ -11,10 +19,11 @@ function MenuItemList() {
   const [menuItems, setMenuItems] = useState<MenuItemModel[]>(data);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [categoryList, setCategoryList] = useState<string[]>([]);
+  const [sort, setSort] = useState(SortingTypes.NAME_A_Z);
 
   useEffect(() => {
     if (data) {
-      const tempMenuArray = handleFilters(selectedCategory, searchValue);
+      const tempMenuArray = handleFilters(selectedCategory, searchValue, sort);
       setMenuItems(tempMenuArray);
     }
   }, [searchValue, data]);
@@ -45,8 +54,8 @@ function MenuItemList() {
 
         setSelectedCategory(localCategory);
 
-        const filteredMenuItems = handleFilters(localCategory, searchValue);
-        setMenuItems(filteredMenuItems);
+        const tempMenuArray = handleFilters(localCategory, searchValue, sort);
+        setMenuItems(tempMenuArray);
 
         return;
       }
@@ -55,7 +64,11 @@ function MenuItemList() {
     });
   };
 
-  const handleFilters = (category: string, search: string) => {
+  const handleFilters = (
+    category: string,
+    search: string,
+    sortType: SortingTypes
+  ) => {
     let tempMenuItems = [...data];
 
     if (category && category !== "All") {
@@ -71,7 +84,45 @@ function MenuItemList() {
       );
     }
 
+    switch (sortType) {
+      case SortingTypes.PRICE_LOW_HIGH:
+        tempMenuItems.sort(
+          (a: MenuItemModel, b: MenuItemModel) => a.price - b.price
+        );
+        break;
+      case SortingTypes.PRICE_HIGH_LOW:
+        tempMenuItems.sort(
+          (a: MenuItemModel, b: MenuItemModel) => b.price - a.price
+        );
+        break;
+      case SortingTypes.NAME_A_Z:
+        tempMenuItems.sort(
+          (a: MenuItemModel, b: MenuItemModel) =>
+            a.name.toUpperCase().charCodeAt(0) -
+            b.name.toUpperCase().charCodeAt(0)
+        );
+        break;
+      case SortingTypes.NAME_Z_A:
+        tempMenuItems.sort(
+          (a: MenuItemModel, b: MenuItemModel) =>
+            b.name.toUpperCase().charCodeAt(0) -
+            a.name.toUpperCase().charCodeAt(0)
+        );
+        break;
+    }
+
     return tempMenuItems;
+  };
+
+  const handleSortClick = (sortIndex: number) => {
+    setSort(sortOptions[sortIndex]);
+
+    const tempMenuArray = handleFilters(
+      selectedCategory,
+      searchValue,
+      sortOptions[sortIndex]
+    );
+    setMenuItems(tempMenuArray);
   };
 
   return (
@@ -90,6 +141,28 @@ function MenuItemList() {
               </button>
             </li>
           ))}
+          <li className="nav-item dropdown" style={{ marginLeft: "auto" }}>
+            <div
+              className="nav-link dropdown-toggle text-dark fs-6 border"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              {sort}
+            </div>
+            <ul className="dropdown-menu">
+              {sortOptions.map((sortOption, index) => (
+                <li
+                  className="dropdown-item"
+                  style={{ cursor: "pointer" }}
+                  key={index}
+                  onClick={() => handleSortClick(index)}
+                >
+                  {sortOption}
+                </li>
+              ))}
+            </ul>
+          </li>
         </ul>
       </div>
 

@@ -13,8 +13,15 @@ export enum OrderStatuses {
 }
 
 export enum Categories {
-  APPETIZER = "Appetizer", 
-  ENTREE = "Entree", 
-  DESSERT = "Dessert", 
-  BEVERAGES = "Beverages", 
+  APPETIZER = "Appetizer",
+  ENTREE = "Entree",
+  DESSERT = "Dessert",
+  BEVERAGES = "Beverages",
+}
+
+export enum SortingTypes {
+  PRICE_LOW_HIGH = "Price Low - High",
+  PRICE_HIGH_LOW = "Price High - Low",
+  NAME_A_Z = "Name A - Z",
+  NAME_Z_A = "Name Z - A",
 }
