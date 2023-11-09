@@ -1,5 +1,5 @@
 import { Banner } from "../components/page/common";
-import { MenuItemList } from "../components/page/menuItems";
+import { MenuItemList } from "../components/page/home";
 
 function Home() {
   return (
