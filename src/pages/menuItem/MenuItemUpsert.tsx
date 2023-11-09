@@ -4,6 +4,7 @@ import { inputHelper, toastNotify } from "../../helpers";
 import {
   useCreateMenuItemMutation,
   useGetMenuItemByIdQuery,
+  useUpdateMenuItemMutation,
 } from "../../apis/menuItemApi";
 import { MainLoader } from "../../components/page/common";
 
@@ -25,11 +26,13 @@ function MenuItemUpsert() {
   );
 
   const [createMenuItem] = useCreateMenuItemMutation();
+  const [updateMenuItem] = useUpdateMenuItemMutation();
 
   const { id } = useParams();
   const { data } = useGetMenuItemByIdQuery(id);
 
   useEffect(() => {
+    setIsLoading(true);
     if (data && data.result) {
       const tempData = {
         name: data.result.name,
@@ -41,6 +44,7 @@ function MenuItemUpsert() {
 
       setMenuItemInputs(tempData);
       setImageToDisplay(data.result.imageUrl);
+      setIsLoading(false);
     }
   }, [data]);
 
@@ -89,7 +93,7 @@ function MenuItemUpsert() {
     event.preventDefault();
     setIsLoading(true);
 
-    if (!imageToStore) {
+    if (!imageToStore && !id) {
       toastNotify("Please upload an image", "error");
       setIsLoading(false);
 
@@ -102,9 +106,21 @@ function MenuItemUpsert() {
     formData.append("specialTag", menuItemInputs.specialTag);
     formData.append("category", menuItemInputs.category);
     formData.append("price", menuItemInputs.price);
-    formData.append("imageFile", imageToStore);
+    if (imageToStore) {
+      formData.append("imageFile", imageToStore);
+    }
 
-    const response = await createMenuItem(formData);
+    let response;
+
+    if (id) {
+      formData.append("id", id);
+      response = await updateMenuItem({ data: formData, id });
+      toastNotify("Menu Item was updated successfully", "success");
+    } else {
+      response = await createMenuItem(formData);
+      toastNotify("Menu Item was created successfully", "success");
+    }
+
     if (response) {
       setIsLoading(false);
       navigate("/menuItem/menuItemList");
@@ -116,7 +132,9 @@ function MenuItemUpsert() {
   return (
     <div className="container border mt-5 p-5 bg-light">
       {isLoading && <MainLoader />}
-      <h3 className="px-2 text-success">Add Menu Item</h3>
+      <h3 className="px-2 text-success">
+        {id ? "Update Menu Item" : "Add Menu Item"}
+      </h3>
       <form method="post" encType="multipart/form-data" onSubmit={handleSubmit}>
         <div className="row mt-3">
           <div className="col-md-7">
@@ -173,7 +191,7 @@ function MenuItemUpsert() {
                   type="submit"
                   className="btn btn-success form-control mt-3"
                 >
-                  Submit
+                  {id ? "Update" : "Create"}
                 </button>
               </div>
               <div className="col-6">
