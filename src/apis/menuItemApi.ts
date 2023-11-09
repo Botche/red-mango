@@ -23,9 +23,6 @@ const menuItemApi = createApi({
       query: (data) => ({
         url: `menuItem`,
         method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
         body: data,
       }),
       invalidatesTags: ["MenuItems"],
@@ -34,9 +31,6 @@ const menuItemApi = createApi({
       query: ({ data, id }) => ({
         url: `menuItem/${id}`,
         method: "PUT",
-        headers: {
-          "Content-type": "application/json",
-        },
         body: data,
       }),
       invalidatesTags: ["MenuItems"],
