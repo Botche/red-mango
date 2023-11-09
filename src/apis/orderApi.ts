@@ -50,7 +50,6 @@ const orderApi = createApi({
 export const {
   useCreateOrderMutation,
   useGetAllOrdersQuery,
-  useLazyGetAllOrdersQuery,
   useGetOrderDetailsQuery,
   useUpdateOrderDetailsMutation,
 } = orderApi;

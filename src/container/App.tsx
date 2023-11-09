@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { jwtDecode } from "jwt-decode";
@@ -20,7 +20,9 @@ import {
   Register,
   ShoppingCart,
 } from "../pages";
-import { useLazyGetShoppingCartQuery } from "../apis/shoppingCartApi";
+import {
+  useGetShoppingCartQuery,
+} from "../apis/shoppingCartApi";
 import { setShoppingCart } from "../storage/redux/shoppingCartSlice";
 import { UserModel } from "../interfaces";
 import { setLoggedInUser } from "../storage/redux/userAuthSlice";
@@ -31,35 +33,35 @@ import { MainLoader } from "../components/page/common";
 
 function App() {
   const dispatch = useDispatch();
+  const [skipGetShoppingCart, setSkipGetShoppingCart] = useState(true);
   const userData: UserModel = useSelector(
     (state: RootState) => state.userAuthStore
   );
-  const [
-    getShoppingCart,
-    { isLoading: isGetShoppingCartLoading, isSuccess, currentData },
-  ] = useLazyGetShoppingCartQuery();
-  const { data, isLoading: isGetMenuItemsLoading } = useGetMenuItemsQuery(null);
+  const { data: currentData, isLoading: isGetShoppingCartLoading } =
+    useGetShoppingCartQuery(userData.id, { skip: skipGetShoppingCart });
+  const { data: menuItems, isLoading: isGetMenuItemsLoading } =
+    useGetMenuItemsQuery(null);
 
   useEffect(() => {
     const token = localStorage.getItem("token")!;
     if (token) {
       const { fullName, email, id, role }: UserModel = jwtDecode(token);
       dispatch(setLoggedInUser({ fullName, email, id, role }));
-      getShoppingCart(id);
+      setSkipGetShoppingCart(false);
     }
-  }, [dispatch, getShoppingCart, userData]);
+  }, [dispatch, userData]);
 
   useEffect(() => {
-    if (isSuccess && !isGetShoppingCartLoading) {
+    if (!isGetShoppingCartLoading) {
       dispatch(setShoppingCart(currentData?.result.cartItems));
     }
-  }, [isGetShoppingCartLoading, isSuccess, currentData, dispatch]);
+  }, [isGetShoppingCartLoading, currentData, dispatch]);
 
   useEffect(() => {
     if (!isGetMenuItemsLoading) {
-      dispatch(setMenuItem(data.result));
+      dispatch(setMenuItem(menuItems.result));
     }
-  }, [isGetMenuItemsLoading, data, dispatch]);
+  }, [isGetMenuItemsLoading, menuItems, dispatch]);
 
   if (isGetMenuItemsLoading) {
     return <MainLoader />;
