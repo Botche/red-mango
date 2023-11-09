@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/15f8a8ec-778a-46c1-a30b-69ece0ed5c71/resourceGroups/react-dotnetmastery/providers/Microsoft.Web/sites/redmango-ui",
+    "appService.deploySubpath": "."
+}
