@@ -4,6 +4,12 @@ const shoppingCartApi = createApi({
   reducerPath: "shoppingCartApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "https://redmangoapidotnet.azurewebsites.net/api/",
+    prepareHeaders: (headers: Headers, api) => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        headers.append("Authorization", `Bearer ${token}`);
+      }
+    },
   }),
   tagTypes: ["ShoppingCarts"],
   endpoints: (builder) => ({
