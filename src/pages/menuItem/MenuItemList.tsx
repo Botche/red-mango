@@ -17,7 +17,7 @@ function MenuItemList() {
           className="btn btn-success"
           onClick={() => navigate("/menuItem/menuItemUpsert")}
         >
-          Add New
+          Add New Menu Item
         </button>
       </div>
       <div className="p-2">
