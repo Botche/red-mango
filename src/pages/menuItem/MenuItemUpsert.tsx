@@ -111,9 +111,9 @@ function MenuItemUpsert() {
     }
 
     const formData = new FormData();
-    formData.append("name", menuItemInputs.name);
-    formData.append("description", menuItemInputs.description);
-    formData.append("specialTag", menuItemInputs.specialTag);
+    formData.append("name", menuItemInputs.name ?? "");
+    formData.append("description", menuItemInputs.description ?? "");
+    formData.append("specialTag", menuItemInputs.specialTag ?? "");
     formData.append("category", menuItemInputs.category);
     formData.append("price", menuItemInputs.price);
     if (imageToStore) {
