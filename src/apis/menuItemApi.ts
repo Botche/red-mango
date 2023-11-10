@@ -16,19 +16,19 @@ const menuItemApi = createApi({
   endpoints: (builder) => ({
     getMenuItems: builder.query({
       query: () => ({
-        url: "menuItem",
+        url: "menuitem",
       }),
       providesTags: ["MenuItems"],
     }),
     getMenuItemById: builder.query({
       query: (id) => ({
-        url: `menuItem/${id}`,
+        url: `menuitem/${id}`,
       }),
       providesTags: ["MenuItems"],
     }),
     createMenuItem: builder.mutation({
       query: (data) => ({
-        url: `menuItem`,
+        url: `menuitem`,
         method: "POST",
         body: data,
       }),
@@ -36,7 +36,7 @@ const menuItemApi = createApi({
     }),
     updateMenuItem: builder.mutation({
       query: ({ data, id }) => ({
-        url: `menuItem/${id}`,
+        url: `menuitem/${id}`,
         method: "PUT",
         body: data,
       }),
@@ -44,7 +44,7 @@ const menuItemApi = createApi({
     }),
     deleteMenuItem: builder.mutation({
       query: (id) => ({
-        url: `menuItem/${id}`,
+        url: `menuitem/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["MenuItems"],
