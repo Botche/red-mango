@@ -1,17 +1,21 @@
 import { useState } from "react";
 
+type PaginationOptions = {
+  pageNumber: number;
+  pageSize: number;
+};
+
+type PaginationProps = {
+  pageOptions: PaginationOptions;
+  setPageOptions: (pageOptions: PaginationOptions) => void;
+  totalRecords: number;
+};
+
 function Pagination({
   pageOptions,
   setPageOptions,
   totalRecords,
-}: {
-  pageOptions: { pageNumber: number; pageSize: number };
-  setPageOptions: (pageOptions: {
-    pageNumber: number;
-    pageSize: number;
-  }) => void;
-  totalRecords: number;
-}) {
+}: PaginationProps) {
   const [currentPageSize, setCurrentPageSize] = useState(pageOptions.pageSize);
 
   const getPageDetails = () => {
