@@ -30,6 +30,7 @@ function MenuItemUpsert() {
   const [menuItemInputs, setMenuItemInputs] = useState(menuItemData);
   const [isLoading, setIsLoading] = useState(false);
   const [imageToStore, setImageToStore] = useState<any>();
+  const [skipGetMenuItem, setSkipGetMenuItem] = useState(true);
   const [imageToDisplay, setImageToDisplay] = useState(
     "https://via.placeholder.com/150"
   );
@@ -38,7 +39,9 @@ function MenuItemUpsert() {
   const [updateMenuItem] = useUpdateMenuItemMutation();
 
   const { id } = useParams();
-  const { data } = useGetMenuItemByIdQuery(id ?? "");
+  const { data } = useGetMenuItemByIdQuery(id, {
+    skip: skipGetMenuItem,
+  });
 
   useEffect(() => {
     setIsLoading(true);
@@ -56,6 +59,15 @@ function MenuItemUpsert() {
       setIsLoading(false);
     }
   }, [data]);
+
+  useEffect(() => {
+    if (id) {
+      setSkipGetMenuItem(false);
+      return;
+    }
+    
+    setIsLoading(false);
+  }, [id]);
 
   const handleMenuItemInput = (
     event: React.ChangeEvent<
