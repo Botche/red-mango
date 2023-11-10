@@ -3,6 +3,7 @@ import OrderDetailsModel from "./OrderDetailsModel";
 
 type OrderHeaderModel = {
   id?: string;
+  itemNumber?: number;
   pickupName: string;
   pickupPhoneNumber: string;
   pickupEmail: string;

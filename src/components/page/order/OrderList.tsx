@@ -25,7 +25,7 @@ function OrderList({ orderData }: OrderListProps) {
 
           return (
             <div key={index} className="row border">
-              <div className="col-1">{orderHeader.id}</div>
+              <div className="col-1">{orderHeader.itemNumber}</div>
               <div className="col-3">{orderHeader.pickupName}</div>
               <div className="col-2">{orderHeader.pickupPhoneNumber}</div>
               <div className="col-1">${orderHeader.orderTotal.toFixed(2)}</div>
