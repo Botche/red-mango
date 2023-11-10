@@ -1,7 +1,7 @@
 import { OrderStatuses } from "../utility/constants";
 import OrderDetailsModel from "./OrderDetailsModel";
 
-export default interface OrderHeaderModel {
+type OrderHeaderModel = {
   id?: string;
   pickupName: string;
   pickupPhoneNumber: string;
@@ -13,4 +13,6 @@ export default interface OrderHeaderModel {
   status: OrderStatuses;
   totalItems: number;
   orderDetails: OrderDetailsModel[];
-}
+};
+
+export default OrderHeaderModel;

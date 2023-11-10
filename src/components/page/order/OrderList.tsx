@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import OrderListProps from "./OrderListType";
-import { OrderHeaderModel } from "../../../interfaces";
+import { OrderHeaderModel } from "../../../types";
 import { getStatusColor } from "../../../helpers";
 
 function OrderList({ orderData }: OrderListProps) {

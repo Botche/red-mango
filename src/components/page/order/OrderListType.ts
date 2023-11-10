@@ -1,5 +1,7 @@
-import { OrderHeaderModel } from "../../../interfaces";
+import { OrderHeaderModel } from "../../../types";
 
-export default interface OrderListProps {
+type OrderListProps = {
   orderData: OrderHeaderModel[];
-}
+};
+
+export default OrderListProps;

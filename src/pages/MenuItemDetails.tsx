@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { useGetMenuItemByIdQuery } from "../apis/menuItemApi";
 import { useUpdateShoppingCartMutation } from "../apis/shoppingCartApi";
 import { MainLoader, MiniLoader } from "../components/page/common";
-import { ApiResponse, UserModel } from "../interfaces";
+import { ApiResponse, UserModel } from "../types";
 import { toastNotify } from "../helpers";
 import { RootState } from "../storage/redux/store";
 

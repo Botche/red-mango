@@ -1,4 +1,4 @@
-export default interface ApiResponse {
+type ApiResponse = {
   data?: {
     statusCode?: number;
     isSuccess?: boolean;
@@ -8,4 +8,6 @@ export default interface ApiResponse {
     };
   };
   error?: any;
-}
+};
+
+export default ApiResponse;

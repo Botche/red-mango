@@ -1,10 +1,12 @@
 import CartItemModel from "./CartItemModel";
 
-export default interface ShoppingCartModel {
+type ShoppingCartModel = {
   id?: string;
   userId?: string;
   cartTotal?: number;
   cartItems: CartItemModel[];
   stripePaymentIntentId?: any;
   clientSecret?: any;
-}
+};
+
+export default ShoppingCartModel;

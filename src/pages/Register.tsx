@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { inputHelper, toastNotify } from "../helpers";
 import { useRegisterUserMutation } from "../apis/authApi";
-import { ApiResponse } from "../interfaces";
+import { ApiResponse } from "../types";
 import { MainLoader } from "../components/page/common";
 
 function Register() {

@@ -24,7 +24,7 @@ import {
   useGetShoppingCartQuery,
 } from "../apis/shoppingCartApi";
 import { setShoppingCart } from "../storage/redux/shoppingCartSlice";
-import { UserModel } from "../interfaces";
+import { UserModel } from "../types";
 import { setLoggedInUser } from "../storage/redux/userAuthSlice";
 import { RootState } from "../storage/redux/store";
 import { useGetMenuItemsQuery } from "../apis/menuItemApi";

@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { CartItemModel, UserModel } from "../../../interfaces";
+import { CartItemModel, UserModel } from "../../../types";
 import { RootState } from "../../../storage/redux/store";
 import {
   removeFromCart,

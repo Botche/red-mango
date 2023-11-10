@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { inputHelper, toastNotify } from "../helpers";
-import { ApiResponse, UserModel } from "../interfaces";
+import { ApiResponse, UserModel } from "../types";
 import { useLoginUserMutation } from "../apis/authApi";
 import { jwtDecode } from "jwt-decode";
 import { setLoggedInUser } from "../storage/redux/userAuthSlice";

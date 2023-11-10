@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { ApiResponse, CartItemModel, UserModel } from "../../../interfaces";
+import { ApiResponse, CartItemModel, UserModel } from "../../../types";
 import { RootState } from "../../../storage/redux/store";
 import { inputHelper } from "../../../helpers";
 import { MiniLoader } from "../common";

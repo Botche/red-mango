@@ -1,4 +1,4 @@
-export default interface MenuItemModel {
+type MenuItemModel = {
   name: string;
   description: string;
   specialTag: string;
@@ -6,4 +6,6 @@ export default interface MenuItemModel {
   price: number;
   imageUrl: string;
   id: string;
-}
+};
+
+export default MenuItemModel;

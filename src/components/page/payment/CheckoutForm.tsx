@@ -12,7 +12,7 @@ import {
   CartItemModel,
   OrderDetailsModel,
   OrderHeaderModel,
-} from "../../../interfaces";
+} from "../../../types";
 import { useCreateOrderMutation } from "../../../apis/orderApi";
 import { OrderStatuses } from "../../../utility/constants";
 

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getStatusColor } from "../../../helpers";
-import { CartItemModel } from "../../../interfaces";
+import { CartItemModel } from "../../../types";
 import OrderSummaryProps from "./OrderSummaryProps";
 import { OrderStatuses, Roles } from "../../../utility/constants";
 import { RootState } from "../../../storage/redux/store";

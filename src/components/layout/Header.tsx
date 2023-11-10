@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { RootState } from "../../storage/redux/store";
-import { CartItemModel, UserModel } from "../../interfaces";
+import { CartItemModel, UserModel } from "../../types";
 import { Fragment } from "react";
 import {
   emptyUserState,

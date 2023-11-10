@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { MenuItemModel } from "../../../interfaces";
+import { MenuItemModel } from "../../../types";
 import MenuItemCard from "./MenuItemCard";
 import { RootState } from "../../../storage/redux/store";
 import { SortingTypes } from "../../../utility/constants";

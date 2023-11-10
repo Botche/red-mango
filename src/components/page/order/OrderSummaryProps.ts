@@ -1,7 +1,7 @@
-import { ShoppingCartModel } from "../../../interfaces";
+import { ShoppingCartModel } from "../../../types";
 import { OrderStatuses } from "../../../utility/constants";
 
-export default interface OrderSummaryProps {
+type OrderSummaryProps = {
   data: {
     id: string;
     cartItems: ShoppingCartModel[];
@@ -15,4 +15,6 @@ export default interface OrderSummaryProps {
     email: string;
     phoneNumber: string;
   };
-}
+};
+
+export default OrderSummaryProps;

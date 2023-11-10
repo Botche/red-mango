@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { ApiResponse, MenuItemModel, UserModel } from "../../../interfaces";
+import { ApiResponse, MenuItemModel, UserModel } from "../../../types";
 import { useUpdateShoppingCartMutation } from "../../../apis/shoppingCartApi";
 import { MiniLoader } from "../common";
 import { toastNotify } from "../../../helpers";
 import { RootState } from "../../../storage/redux/store";
 
-interface MenuItemCardProps {
+type MenuItemCardProps = {
   menuItem: MenuItemModel;
 }
 

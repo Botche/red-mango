@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { RootState } from "../../storage/redux/store";
-import { MenuItemModel } from "../../interfaces";
+import { MenuItemModel } from "../../types";
 import { useDeleteMenuItemMutation } from "../../apis/menuItemApi";
 
 function MenuItemList() {
