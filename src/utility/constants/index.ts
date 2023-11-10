@@ -1,5 +1,4 @@
 import ROUTES from "./routes";
+import GLOBAL_CONSTANTS from "./globalConstants";
 
-export {
-  ROUTES,
-};
+export { ROUTES, GLOBAL_CONSTANTS };

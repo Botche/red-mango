@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { GLOBAL_CONSTANTS } from "../utility/constants";
 
 const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://redmangoapidotnet.azurewebsites.net/api/",
+    baseUrl: GLOBAL_CONSTANTS.baseUrl,
   }),
   endpoints: (builder) => ({
     registerUser: builder.mutation({
