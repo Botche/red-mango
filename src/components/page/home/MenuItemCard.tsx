@@ -6,7 +6,7 @@ import { useUpdateShoppingCartMutation } from "../../../apis/shoppingCartApi";
 import { MiniLoader } from "../common";
 import { toastNotify } from "../../../helpers";
 import { RootState } from "../../../storage/redux/store";
-import { ROUTES } from "../../../utility/constants";
+import { MESSAGES, ROUTES } from "../../../utility/constants";
 
 type MenuItemCardProps = {
   menuItem: MenuItemModel;
@@ -35,7 +35,7 @@ function MenuItemCard(props: MenuItemCardProps) {
     });
 
     if (response.data && response.data.isSuccess) {
-      toastNotify("Item added to cart successfully!");
+      toastNotify(MESSAGES.addedItemToCartSuccessfully);
     }
 
     setIsAddingToCart(false);

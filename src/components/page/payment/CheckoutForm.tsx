@@ -15,7 +15,7 @@ import {
 } from "../../../types";
 import { useCreateOrderMutation } from "../../../apis/orderApi";
 import { OrderStatuses } from "../../../utility/enums";
-import { ROUTES } from "../../../utility/constants";
+import { MESSAGES, ROUTES } from "../../../utility/constants";
 
 function CheckoutForm({ data, userInput }: OrderSummaryProps) {
   const [isProcessing, setIsProcessing] = useState(false);
@@ -42,7 +42,7 @@ function CheckoutForm({ data, userInput }: OrderSummaryProps) {
     });
 
     if (result.error) {
-      toastNotify("An unexpected error occured.", "error");
+      toastNotify(MESSAGES.unexpectedErrorOccured, "error");
       setIsProcessing(false);
     } else {
       let grandTotal = 0;

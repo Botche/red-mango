@@ -7,7 +7,7 @@ import { MainLoader, MiniLoader } from "../components/page/common";
 import { ApiResponse, UserModel } from "../types";
 import { toastNotify } from "../helpers";
 import { RootState } from "../storage/redux/store";
-import { ROUTES } from "../utility/constants";
+import { MESSAGES, ROUTES } from "../utility/constants";
 
 function MenuItemDetails() {
   const { menuItemId } = useParams();
@@ -45,7 +45,7 @@ function MenuItemDetails() {
     });
 
     if (response.data && response.data.isSuccess) {
-      toastNotify("Item added to cart successfully!");
+      toastNotify(MESSAGES.addedItemToCartSuccessfully);
     }
 
     setIsAddingToCart(false);

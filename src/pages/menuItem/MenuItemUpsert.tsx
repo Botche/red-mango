@@ -8,7 +8,7 @@ import {
 } from "../../apis/menuItemApi";
 import { MainLoader } from "../../components/page/common";
 import { Categories } from "../../utility/enums";
-import { ROUTES } from "../../utility/constants";
+import { MESSAGES, ROUTES } from "../../utility/constants";
 
 const categories = [
   Categories.APPETIZER,
@@ -79,12 +79,12 @@ function MenuItemUpsert() {
 
       if (file.size > 1000 * 1024) {
         setImageToStore("");
-        toastNotify("File Must be less than 1 MB", "error");
+        toastNotify(MESSAGES.fileTooBig, "error");
 
         return;
       } else if (!isImageTypeValid) {
         setImageToStore("");
-        toastNotify("File Must be jpeg, jpg or png", "error");
+        toastNotify(MESSAGES.imageIncorrectFileExtension, "error");
 
         return;
       }
@@ -105,7 +105,7 @@ function MenuItemUpsert() {
     setIsLoading(true);
 
     if (!imageToStore && !id) {
-      toastNotify("Please upload an image", "error");
+      toastNotify(MESSAGES.missingImage, "error");
       setIsLoading(false);
 
       return;
@@ -126,10 +126,10 @@ function MenuItemUpsert() {
     if (id) {
       formData.append("id", id);
       response = await updateMenuItem({ data: formData, id });
-      toastNotify("Menu Item was updated successfully", "success");
+      toastNotify(MESSAGES.menuItemUpdateSuccessfully, "success");
     } else {
       response = await createMenuItem(formData);
-      toastNotify("Menu Item was created successfully", "success");
+      toastNotify(MESSAGES.menuItemCreatedSuccessfully, "success");
     }
 
     if (response) {
