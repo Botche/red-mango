@@ -7,7 +7,7 @@ import { useLoginUserMutation } from "../apis/authApi";
 import { jwtDecode } from "jwt-decode";
 import { setLoggedInUser } from "../storage/redux/userAuthSlice";
 import { MainLoader } from "../components/page/common";
-import { ROUTES } from "../utility/constants";
+import { GLOBAL_CONSTANTS, ROUTES } from "../utility/constants";
 
 function Login() {
   const [isLoading, setIsLoading] = useState(false);
@@ -36,7 +36,7 @@ function Login() {
 
     if (response.data) {
       const { token } = response.data.result!;
-      localStorage.setItem("token", token);
+      localStorage.setItem(GLOBAL_CONSTANTS.tokenKey, token);
 
       const { fullName, email, id, role }: UserModel = jwtDecode(token);
       dispatch(setLoggedInUser({ fullName, email, id, role }));

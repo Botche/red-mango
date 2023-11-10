@@ -1,10 +1,10 @@
 import { jwtDecode } from "jwt-decode";
 import { Roles } from "../utility/enums";
-import { ROUTES } from "../utility/constants";
+import { GLOBAL_CONSTANTS, ROUTES } from "../utility/constants";
 
 const withAdminAuth = (WrappedComponent: any) => {
   return (props: any) => {
-    const accessToken = localStorage.getItem("token") ?? "";
+    const accessToken = localStorage.getItem(GLOBAL_CONSTANTS.tokenKey) ?? "";
 
     if (accessToken) {
       const decode: {

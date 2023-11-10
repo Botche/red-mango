@@ -6,7 +6,7 @@ const shoppingCartApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: GLOBAL_CONSTANTS.baseUrl,
     prepareHeaders: (headers: Headers, api) => {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem(GLOBAL_CONSTANTS.tokenKey);
       if (token) {
         headers.append("Authorization", `Bearer ${token}`);
       }

@@ -28,7 +28,7 @@ import { RootState } from "../storage/redux/store";
 import { useGetMenuItemsQuery } from "../apis/menuItemApi";
 import { setMenuItem } from "../storage/redux/menuItemSlice";
 import { MainLoader } from "../components/page/common";
-import { ROUTES } from "../utility/constants";
+import { GLOBAL_CONSTANTS, ROUTES } from "../utility/constants";
 
 function App() {
   const dispatch = useDispatch();
@@ -42,7 +42,7 @@ function App() {
     useGetMenuItemsQuery(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("token")!;
+    const token = localStorage.getItem(GLOBAL_CONSTANTS.tokenKey)!;
     if (token) {
       const { fullName, email, id, role }: UserModel = jwtDecode(token);
       dispatch(setLoggedInUser({ fullName, email, id, role }));

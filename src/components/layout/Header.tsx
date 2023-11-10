@@ -8,7 +8,7 @@ import {
   setLoggedInUser,
 } from "../../storage/redux/userAuthSlice";
 import { Roles } from "../../utility/enums";
-import { ROUTES } from "../../utility/constants";
+import { GLOBAL_CONSTANTS, ROUTES } from "../../utility/constants";
 
 const logo = require("../../assets/images/mango.png");
 
@@ -24,7 +24,7 @@ function Header() {
   );
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem(GLOBAL_CONSTANTS.tokenKey);
     dispatch(setLoggedInUser(emptyUserState));
     navigate(ROUTES.home);
   };
