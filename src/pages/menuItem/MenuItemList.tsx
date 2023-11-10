@@ -57,7 +57,7 @@ function MenuItemList() {
                 style={{ width: "100%", maxWidth: "120px" }}
               />
             </div>
-            <div className="col-1">{menuItem.id}</div>
+            <div className="col-1">{menuItem.itemNumber}</div>
             <div className="col-2">{menuItem.name}</div>
             <div className="col-2">{menuItem.category}</div>
             <div className="col-1">${menuItem.price}</div>

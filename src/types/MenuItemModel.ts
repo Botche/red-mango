@@ -6,6 +6,7 @@ type MenuItemModel = {
   price: number;
   imageUrl: string;
   id: string;
+  itemNumber: number;
 };
 
 export default MenuItemModel;
