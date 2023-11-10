@@ -27,12 +27,12 @@ function Pagination({
   const handlePaginationClick = (direction: "prev" | "next") => {
     if (direction === "prev") {
       setPageOptions({
-        pageSize: 5,
+        pageSize: currentPageSize,
         pageNumber: pageOptions.pageNumber - 1,
       });
     } else if (direction === "next") {
       setPageOptions({
-        pageSize: 5,
+        pageSize: currentPageSize,
         pageNumber: pageOptions.pageNumber + 1,
       });
     }
