@@ -1,5 +1,6 @@
 import { jwtDecode } from "jwt-decode";
-import { Roles } from "../utility/constants";
+import { Roles } from "../utility/enums";
+import { ROUTES } from "../utility/constants";
 
 const withAdminAuth = (WrappedComponent: any) => {
   return (props: any) => {
@@ -11,11 +12,11 @@ const withAdminAuth = (WrappedComponent: any) => {
       } = jwtDecode(accessToken);
 
       if (decode.role !== Roles.ADMIN) {
-        window.location.replace("/accessDenied");
+        window.location.replace(ROUTES.accessDenied);
         return null;
       }
     } else {
-      window.location.replace("/login");
+      window.location.replace(ROUTES.login);
       return null;
     }
 

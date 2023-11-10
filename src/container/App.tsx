@@ -20,9 +20,7 @@ import {
   Register,
   ShoppingCart,
 } from "../pages";
-import {
-  useGetShoppingCartQuery,
-} from "../apis/shoppingCartApi";
+import { useGetShoppingCartQuery } from "../apis/shoppingCartApi";
 import { setShoppingCart } from "../storage/redux/shoppingCartSlice";
 import { UserModel } from "../types";
 import { setLoggedInUser } from "../storage/redux/userAuthSlice";
@@ -30,6 +28,7 @@ import { RootState } from "../storage/redux/store";
 import { useGetMenuItemsQuery } from "../apis/menuItemApi";
 import { setMenuItem } from "../storage/redux/menuItemSlice";
 import { MainLoader } from "../components/page/common";
+import { ROUTES } from "../utility/constants";
 
 function App() {
   const dispatch = useDispatch();
@@ -72,31 +71,23 @@ function App() {
       <Header />
       <div className="pb-5">
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route
-            path="/menuItemDetails/:menuItemId"
-            element={<MenuItemDetails />}
-          />
-          <Route path="/shoppingCart" element={<ShoppingCart />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/payment" element={<Payment />} />
-          <Route
-            path="/order/orderConfirmed/:id"
-            element={<OrderConfirmed />}
-          />
-          <Route path="/order/myOrders" element={<MyOrders />} />
-          <Route path="/order/orderDetails/:id" element={<OrderDetails />} />
-          <Route path="/order/allOrders" element={<AllOrders />} />
-          <Route path="/menuItem/menuItemList" element={<MenuItemList />} />
-          <Route
-            path="/menuItem/menuItemUpsert/:id?"
-            element={<MenuItemUpsert />}
-          />
+          <Route path={ROUTES.home} element={<Home />} />
+          <Route path={ROUTES.menuItemDetails} element={<MenuItemDetails />} />
+          <Route path={ROUTES.shoppingCart} element={<ShoppingCart />} />
+          <Route path={ROUTES.login} element={<Login />} />
+          <Route path={ROUTES.register} element={<Register />} />
+          <Route path={ROUTES.payment} element={<Payment />} />
+          <Route path={ROUTES.orderConfirmed} element={<OrderConfirmed />} />
+          <Route path={ROUTES.myOrders} element={<MyOrders />} />
+          <Route path={ROUTES.orderDetails} element={<OrderDetails />} />
+          <Route path={ROUTES.allOrders} element={<AllOrders />} />
+          <Route path={ROUTES.menuItemsList} element={<MenuItemList />} />
+          <Route path={ROUTES.createMenuItem} element={<MenuItemUpsert />} />
+          <Route path={ROUTES.updateMenuItem} element={<MenuItemUpsert />} />
 
-          <Route path="/accessDenied" element={<AccessDenied />} />
+          <Route path={ROUTES.accessDenied} element={<AccessDenied />} />
 
-          <Route path="*" element={<NotFound />} />
+          <Route path={ROUTES.default} element={<NotFound />} />
         </Routes>
       </div>
       <Footer />

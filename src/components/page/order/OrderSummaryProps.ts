@@ -1,5 +1,5 @@
 import { ShoppingCartModel } from "../../../types";
-import { OrderStatuses } from "../../../utility/constants";
+import { OrderStatuses } from "../../../utility/enums";
 
 type OrderSummaryProps = {
   data: {

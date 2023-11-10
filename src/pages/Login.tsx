@@ -7,6 +7,7 @@ import { useLoginUserMutation } from "../apis/authApi";
 import { jwtDecode } from "jwt-decode";
 import { setLoggedInUser } from "../storage/redux/userAuthSlice";
 import { MainLoader } from "../components/page/common";
+import { ROUTES } from "../utility/constants";
 
 function Login() {
   const [isLoading, setIsLoading] = useState(false);
@@ -41,7 +42,7 @@ function Login() {
       dispatch(setLoggedInUser({ fullName, email, id, role }));
 
       toastNotify("Login successful!");
-      navigate("/");
+      navigate(ROUTES.home);
     } else if (response.error) {
       toastNotify(response.error.data.errorMessages[0], "error");
     }

@@ -1,4 +1,4 @@
-import { OrderStatuses } from "../utility/constants";
+import { OrderStatuses } from "../utility/enums";
 import OrderDetailsModel from "./OrderDetailsModel";
 
 type OrderHeaderModel = {

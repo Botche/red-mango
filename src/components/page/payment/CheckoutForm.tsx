@@ -14,7 +14,8 @@ import {
   OrderHeaderModel,
 } from "../../../types";
 import { useCreateOrderMutation } from "../../../apis/orderApi";
-import { OrderStatuses } from "../../../utility/constants";
+import { OrderStatuses } from "../../../utility/enums";
+import { ROUTES } from "../../../utility/constants";
 
 function CheckoutForm({ data, userInput }: OrderSummaryProps) {
   const [isProcessing, setIsProcessing] = useState(false);
@@ -84,9 +85,9 @@ function CheckoutForm({ data, userInput }: OrderSummaryProps) {
         response &&
         response.data?.result!.status === OrderStatuses.CONFIRMED
       ) {
-        navigate(`/order/orderConfirmed/${response.data.result.id}`);
+        navigate(ROUTES.orderConfirmed.replace(":id", response.data.result.id));
       } else {
-        navigate("/order/failed");
+        navigate(ROUTES.orderFailed);
       }
     }
 

@@ -4,7 +4,7 @@ import { useGetAllOrdersQuery } from "../../apis/orderApi";
 import { OrderList } from "../../components/page/order";
 import { MainLoader, Pagination } from "../../components/page/common";
 import { inputHelper } from "../../helpers";
-import { OrderStatuses } from "../../utility/constants";
+import { OrderStatuses } from "../../utility/enums";
 
 const statusFilterOptions = [
   "All",

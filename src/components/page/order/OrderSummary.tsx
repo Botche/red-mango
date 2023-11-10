@@ -3,11 +3,12 @@ import { useSelector } from "react-redux";
 import { getStatusColor } from "../../../helpers";
 import { CartItemModel } from "../../../types";
 import OrderSummaryProps from "./OrderSummaryProps";
-import { OrderStatuses, Roles } from "../../../utility/constants";
+import { OrderStatuses, Roles } from "../../../utility/enums";
 import { RootState } from "../../../storage/redux/store";
 import { useState } from "react";
 import { useUpdateOrderDetailsMutation } from "../../../apis/orderApi";
 import { MainLoader } from "../common";
+import { ROUTES } from "../../../utility/constants";
 
 function OrderSummary({ data, userInput }: OrderSummaryProps) {
   const [isLoading, setIsLoading] = useState(false);
@@ -90,7 +91,9 @@ function OrderSummary({ data, userInput }: OrderSummaryProps) {
                   </div>
                   <p style={{ width: "70px", textAlign: "right" }}>
                     $
-                    {((cartItem.menuItem?.price ?? 0) * (cartItem.quantity ?? 0)).toFixed(2)}
+                    {(
+                      (cartItem.menuItem?.price ?? 0) * (cartItem.quantity ?? 0)
+                    ).toFixed(2)}
                   </p>
                 </div>
               );
@@ -105,7 +108,7 @@ function OrderSummary({ data, userInput }: OrderSummaryProps) {
       <div className="d-flex justify-content-between align-items-center mt-3">
         <button
           className="btn btn-secondary"
-          onClick={() => navigate("/order/myOrders")}
+          onClick={() => navigate(ROUTES.myOrders)}
         >
           Go back to Orders
         </button>

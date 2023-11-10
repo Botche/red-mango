@@ -1,4 +1,4 @@
-import { OrderStatuses } from "../utility/constants";
+import { OrderStatuses } from "../utility/enums";
 
 const getStatusColor = (status: OrderStatuses) => {
   let color = "";

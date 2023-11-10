@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import OrderListProps from "./OrderListType";
 import { OrderHeaderModel } from "../../../types";
 import { getStatusColor } from "../../../helpers";
+import { ROUTES } from "../../../utility/constants";
 
 function OrderList({ orderData }: OrderListProps) {
   const navigate = useNavigate();
@@ -41,7 +42,9 @@ function OrderList({ orderData }: OrderListProps) {
                 <button
                   className="btn btn-success"
                   onClick={() =>
-                    navigate(`/order/orderDetails/${orderHeader.id}`)
+                    navigate(
+                      ROUTES.orderDetails.replace(":id", orderHeader.id!)
+                    )
                   }
                 >
                   Details

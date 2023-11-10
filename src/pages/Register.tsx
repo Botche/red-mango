@@ -4,6 +4,7 @@ import { inputHelper, toastNotify } from "../helpers";
 import { useRegisterUserMutation } from "../apis/authApi";
 import { ApiResponse } from "../types";
 import { MainLoader } from "../components/page/common";
+import { ROUTES } from "../utility/constants";
 
 function Register() {
   const [isLoading, setIsLoading] = useState(false);
@@ -33,7 +34,7 @@ function Register() {
 
     if (response.data) {
       toastNotify("Registration successful! Please login to continue.");
-      navigate("/login");
+      navigate(ROUTES.login);
     } else if (response.error) {
       toastNotify(response.error.data.errorMessages[0], "error");
     }

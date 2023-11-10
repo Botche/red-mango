@@ -6,20 +6,23 @@ import { useUpdateShoppingCartMutation } from "../../../apis/shoppingCartApi";
 import { MiniLoader } from "../common";
 import { toastNotify } from "../../../helpers";
 import { RootState } from "../../../storage/redux/store";
+import { ROUTES } from "../../../utility/constants";
 
 type MenuItemCardProps = {
   menuItem: MenuItemModel;
-}
+};
 
 function MenuItemCard(props: MenuItemCardProps) {
   const [isAddingToCart, setIsAddingToCart] = useState(false);
-  const userData: UserModel = useSelector((state: RootState) => state.userAuthStore);
+  const userData: UserModel = useSelector(
+    (state: RootState) => state.userAuthStore
+  );
   const navigate = useNavigate();
   const [updateShoppingCart] = useUpdateShoppingCartMutation();
 
   const handleAddToCart = async (menuItemId: string) => {
     if (!userData.id) {
-      navigate("/login");
+      navigate(ROUTES.login);
       return;
     }
 
@@ -46,7 +49,12 @@ function MenuItemCard(props: MenuItemCardProps) {
       >
         <div className="card-body pt-2">
           <div className="row col-10 offset-1 p-4">
-            <Link to={`/menuItemDetails/${props.menuItem.id}`}>
+            <Link
+              to={ROUTES.menuItemDetails.replace(
+                ":menuItemId",
+                props.menuItem.id
+              )}
+            >
               <img
                 src={props.menuItem.imageUrl}
                 style={{ borderRadius: "50%" }}
@@ -103,7 +111,10 @@ function MenuItemCard(props: MenuItemCardProps) {
           <div className="text-center">
             <p className="card-title m-0 text-success fs-3">
               <Link
-                to={`/menuItemDetails/${props.menuItem.id}`}
+                to={ROUTES.menuItemDetails.replace(
+                  ":menuItemId",
+                  props.menuItem.id
+                )}
                 className="text-decoration-none text-success"
               >
                 {props.menuItem.name}

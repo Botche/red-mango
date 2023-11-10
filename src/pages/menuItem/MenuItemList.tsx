@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { RootState } from "../../storage/redux/store";
 import { MenuItemModel } from "../../types";
 import { useDeleteMenuItemMutation } from "../../apis/menuItemApi";
+import { ROUTES } from "../../utility/constants";
 
 function MenuItemList() {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ function MenuItemList() {
         <h1 className="text-success">MenuItem List</h1>
         <button
           className="btn btn-success"
-          onClick={() => navigate("/menuItem/menuItemUpsert")}
+          onClick={() => navigate(ROUTES.createMenuItem)}
         >
           Add New Menu Item
         </button>
@@ -66,7 +67,7 @@ function MenuItemList() {
                 <i
                   className="bi bi-pencil-fill"
                   onClick={() =>
-                    navigate(`/menuItem/menuItemUpsert/${menuItem.id}`)
+                    navigate(ROUTES.updateMenuItem.replace(":id", menuItem.id))
                   }
                 ></i>
               </button>

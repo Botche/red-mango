@@ -6,6 +6,7 @@ import { RootState } from "../../../storage/redux/store";
 import { inputHelper } from "../../../helpers";
 import { MiniLoader } from "../common";
 import { useInitiatePaymentMutation } from "../../../apis/paymentApi";
+import { ROUTES } from "../../../utility/constants";
 
 function CartPickUpDetails() {
   const shoppingCartFromStore: CartItemModel[] = useSelector(
@@ -49,7 +50,7 @@ function CartPickUpDetails() {
     setIsLoading(true);
 
     const { data }: ApiResponse = await initiatePayment(userData.id);
-    navigate("/payment", {
+    navigate(ROUTES.payment, {
       state: { apiResult: data?.result, userInput },
     });
 

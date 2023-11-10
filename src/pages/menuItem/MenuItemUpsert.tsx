@@ -7,7 +7,8 @@ import {
   useUpdateMenuItemMutation,
 } from "../../apis/menuItemApi";
 import { MainLoader } from "../../components/page/common";
-import { Categories } from "../../utility/constants";
+import { Categories } from "../../utility/enums";
+import { ROUTES } from "../../utility/constants";
 
 const categories = [
   Categories.APPETIZER,
@@ -133,7 +134,7 @@ function MenuItemUpsert() {
 
     if (response) {
       setIsLoading(false);
-      navigate("/menuItem/menuItemList");
+      navigate(ROUTES.menuItemsList);
     }
 
     setIsLoading(false);
@@ -211,7 +212,7 @@ function MenuItemUpsert() {
               </div>
               <div className="col-6">
                 <NavLink
-                  to="/menuItem/menuItemList"
+                  to={ROUTES.menuItemsList}
                   className="btn btn-secondary form-control mt-3"
                 >
                   Back to Menu Items

@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { MenuItemModel } from "../../../types";
 import MenuItemCard from "./MenuItemCard";
 import { RootState } from "../../../storage/redux/store";
-import { SortingTypes } from "../../../utility/constants";
+import { SortingTypes } from "../../../utility/enums";
 
 const sortOptions: SortingTypes[] = [
   SortingTypes.NAME_A_Z,

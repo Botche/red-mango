@@ -7,7 +7,8 @@ import {
   emptyUserState,
   setLoggedInUser,
 } from "../../storage/redux/userAuthSlice";
-import { Roles } from "../../utility/constants";
+import { Roles } from "../../utility/enums";
+import { ROUTES } from "../../utility/constants";
 
 const logo = require("../../assets/images/mango.png");
 
@@ -25,13 +26,13 @@ function Header() {
   const handleLogout = () => {
     localStorage.removeItem("token");
     dispatch(setLoggedInUser(emptyUserState));
-    navigate("/");
+    navigate(ROUTES.home);
   };
 
   return (
     <nav className="navbar navbar-expand-lg bg-dark navbar-dark">
       <div className="container-fluid">
-        <NavLink className="nav-link" aria-current="page" to="/">
+        <NavLink className="nav-link" aria-current="page" to={ROUTES.home}>
           <img
             src={logo}
             alt="Logo"
@@ -53,27 +54,29 @@ function Header() {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0 w-100">
             <li className="nav-item">
-              <NavLink className="nav-link" aria-current="page" to="/">
+              <NavLink
+                className="nav-link"
+                aria-current="page"
+                to={ROUTES.home}
+              >
                 Home
               </NavLink>
             </li>
             {userData.role && userData.role === Roles.ADMIN ? (
               <li className="nav-item dropdown">
-                <a
+                <button
                   className="nav-link dropdown-toggle"
-                  href="#"
-                  role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
                   Admin Panel
-                </a>
+                </button>
                 <ul className="dropdown-menu">
                   <li>
                     <NavLink
                       className="dropdown-item"
                       aria-current="page"
-                      to="/menuItem/menuItemList"
+                      to={ROUTES.menuItemsList}
                     >
                       Menu Items
                     </NavLink>
@@ -82,7 +85,7 @@ function Header() {
                     <NavLink
                       className="dropdown-item"
                       aria-current="page"
-                      to="/order/myOrders"
+                      to={ROUTES.myOrders}
                     >
                       My Orders
                     </NavLink>
@@ -91,7 +94,7 @@ function Header() {
                     <NavLink
                       className="dropdown-item"
                       aria-current="page"
-                      to="/order/allOrders"
+                      to={ROUTES.allOrders}
                     >
                       All Orders
                     </NavLink>
@@ -103,7 +106,7 @@ function Header() {
                 <NavLink
                   className="nav-link"
                   aria-current="page"
-                  to="/order/myOrders"
+                  to={ROUTES.myOrders}
                 >
                   Orders
                 </NavLink>
@@ -114,7 +117,7 @@ function Header() {
               <NavLink
                 className="nav-link"
                 aria-current="page"
-                to="/shoppingCart"
+                to={ROUTES.shoppingCart}
               >
                 <i className="bi bi-cart"></i>&nbsp;
                 {userData.id && `(${shoppingCartFromStore.length})`}
@@ -148,13 +151,13 @@ function Header() {
               ) : (
                 <Fragment>
                   <li className="nav-item text-white">
-                    <NavLink className="nav-link" to="/register">
+                    <NavLink className="nav-link" to={ROUTES.register}>
                       Register
                     </NavLink>
                   </li>
                   <li className="nav-item text-white">
                     <NavLink
-                      to="/login"
+                      to={ROUTES.login}
                       className="btn btn-success btn-outlined rounded-pill text-white mx-2"
                       style={{ border: "none", height: "40px", width: "100px" }}
                     >
