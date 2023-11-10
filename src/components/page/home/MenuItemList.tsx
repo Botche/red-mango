@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { MenuItemModel } from "../../../types";
 import MenuItemCard from "./MenuItemCard";
@@ -21,12 +21,61 @@ function MenuItemList() {
   const [categoryList, setCategoryList] = useState<string[]>([]);
   const [sort, setSort] = useState(SortingTypes.NAME_A_Z);
 
+  const handleFilters = useCallback(
+    (category: string, search: string, sortType: SortingTypes) => {
+      let tempMenuItems = [...data];
+
+      if (category && category !== "All") {
+        tempMenuItems = data.filter(
+          (item: MenuItemModel) => item.category === category
+        );
+      }
+
+      if (search) {
+        const tempSearchMenuItems = [...tempMenuItems];
+        tempMenuItems = tempSearchMenuItems.filter((item: MenuItemModel) =>
+          item.name.toUpperCase().includes(search.toUpperCase())
+        );
+      }
+
+      switch (sortType) {
+        case SortingTypes.PRICE_LOW_HIGH:
+          tempMenuItems.sort(
+            (a: MenuItemModel, b: MenuItemModel) => a.price - b.price
+          );
+          break;
+        case SortingTypes.PRICE_HIGH_LOW:
+          tempMenuItems.sort(
+            (a: MenuItemModel, b: MenuItemModel) => b.price - a.price
+          );
+          break;
+        case SortingTypes.NAME_A_Z:
+          tempMenuItems.sort(
+            (a: MenuItemModel, b: MenuItemModel) =>
+              a.name.toUpperCase().charCodeAt(0) -
+              b.name.toUpperCase().charCodeAt(0)
+          );
+          break;
+        case SortingTypes.NAME_Z_A:
+          tempMenuItems.sort(
+            (a: MenuItemModel, b: MenuItemModel) =>
+              b.name.toUpperCase().charCodeAt(0) -
+              a.name.toUpperCase().charCodeAt(0)
+          );
+          break;
+      }
+
+      return tempMenuItems;
+    },
+    [data]
+  );
+
   useEffect(() => {
     if (data) {
       const tempMenuArray = handleFilters(selectedCategory, searchValue, sort);
       setMenuItems(tempMenuArray);
     }
-  }, [searchValue, data]);
+  }, [searchValue, data, selectedCategory, sort, handleFilters]);
 
   useEffect(() => {
     const tempCategoryList = ["All"];
@@ -62,56 +111,6 @@ function MenuItemList() {
 
       button.classList.remove("active");
     });
-  };
-
-  const handleFilters = (
-    category: string,
-    search: string,
-    sortType: SortingTypes
-  ) => {
-    let tempMenuItems = [...data];
-
-    if (category && category !== "All") {
-      tempMenuItems = data.filter(
-        (item: MenuItemModel) => item.category === category
-      );
-    }
-
-    if (search) {
-      const tempSearchMenuItems = [...tempMenuItems];
-      tempMenuItems = tempSearchMenuItems.filter((item: MenuItemModel) =>
-        item.name.toUpperCase().includes(search.toUpperCase())
-      );
-    }
-
-    switch (sortType) {
-      case SortingTypes.PRICE_LOW_HIGH:
-        tempMenuItems.sort(
-          (a: MenuItemModel, b: MenuItemModel) => a.price - b.price
-        );
-        break;
-      case SortingTypes.PRICE_HIGH_LOW:
-        tempMenuItems.sort(
-          (a: MenuItemModel, b: MenuItemModel) => b.price - a.price
-        );
-        break;
-      case SortingTypes.NAME_A_Z:
-        tempMenuItems.sort(
-          (a: MenuItemModel, b: MenuItemModel) =>
-            a.name.toUpperCase().charCodeAt(0) -
-            b.name.toUpperCase().charCodeAt(0)
-        );
-        break;
-      case SortingTypes.NAME_Z_A:
-        tempMenuItems.sort(
-          (a: MenuItemModel, b: MenuItemModel) =>
-            b.name.toUpperCase().charCodeAt(0) -
-            a.name.toUpperCase().charCodeAt(0)
-        );
-        break;
-    }
-
-    return tempMenuItems;
   };
 
   const handleSortClick = (sortIndex: number) => {
