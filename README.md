@@ -1,5 +1,7 @@
 # Getting Started with Create React App
 
+The app is hosted under Azure: Link to the app: [Red Mango](https://redmango-ui.azurewebsites.net/)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
