@@ -1,6 +1,6 @@
 # Red Mango Ui
 
-The app is hosted under Azure: Link to the app: [Red Mango](https://redmango-ui.azurewebsites.net/)
+The app is hosted with Github Pages: Link to the app: [Red Mango](https://botche.github.io/red-mango/)
 
 ## Requirements
 
