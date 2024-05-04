@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/red-mango/static/css/main.40d997e4.css",
-    "main.js": "/red-mango/static/js/main.1613d684.js",
+    "main.js": "/red-mango/static/js/main.bce49d56.js",
     "static/media/confirmed.jpg": "/red-mango/static/media/confirmed.accb13106c6c6759c4ad.jpg",
     "static/media/bootstrap-icons.woff?": "/red-mango/static/media/bootstrap-icons.449ad8adf6ae0424b7ed.woff",
     "static/media/bootstrap-icons.woff2?": "/red-mango/static/media/bootstrap-icons.dea24bf5a7646d8b84e7.woff2",
     "static/media/mango.png": "/red-mango/static/media/mango.cb9d815612235b5f87c4.png",
     "index.html": "/red-mango/index.html",
     "main.40d997e4.css.map": "/red-mango/static/css/main.40d997e4.css.map",
-    "main.1613d684.js.map": "/red-mango/static/js/main.1613d684.js.map"
+    "main.bce49d56.js.map": "/red-mango/static/js/main.bce49d56.js.map"
   },
   "entrypoints": [
     "static/css/main.40d997e4.css",
-    "static/js/main.1613d684.js"
+    "static/js/main.bce49d56.js"
   ]
 }
