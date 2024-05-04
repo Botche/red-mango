@@ -52,7 +52,7 @@ function App() {
 
   useEffect(() => {
     if (!isGetShoppingCartLoading) {
-      dispatch(setShoppingCart(currentData?.result.cartItems));
+      dispatch(setShoppingCart(currentData?.result?.cartItems));
     }
   }, [isGetShoppingCartLoading, currentData, dispatch]);
 
