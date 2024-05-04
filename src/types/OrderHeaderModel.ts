@@ -10,7 +10,7 @@ type OrderHeaderModel = {
   userId: string;
   orderTotal: number;
   orderDate: Date;
-  stripePaymentIntentId: string;
+  stripePaymentIntentId?: string;
   status: OrderStatuses;
   totalItems: number;
   orderDetails: OrderDetailsModel[];

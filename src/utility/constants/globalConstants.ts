@@ -1,6 +1,5 @@
 const GLOBAL_CONSTANTS = {
-  baseUrl: "https://redmangoapidotnet.azurewebsites.net/api/",
-
+  baseUrl: "https://localhost:44340/api/",
   tokenKey: "token",
 };
 
